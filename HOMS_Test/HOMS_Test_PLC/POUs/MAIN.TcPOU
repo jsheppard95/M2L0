@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.14">
+  <POU Name="MAIN" Id="{d73f6033-1c1a-47a8-be0f-3a700ab10cd1}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Main
+VAR
+	
+	//x_up, x_dwn, y_up, y_dwn, pitch: AXIS_REF;
+	x_couple, y_couple: MC_GEARIN;
+	x_couple_start: BOOL := TRUE;
+	y_couple_start: BOOL := TRUE;
+
+//	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[y_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[y_up]^STM Status^Status^Digital input 2; .bSTO:=TIIB[di]^Channel 1^Input'}	
+	{attribute 'TcLinkTo':='.bLimFwd:=TIIB[y_up]^STM Status^Status^Digital input 1'}		
+    M1: DUT_MotionStage:=(nEnableMode:=0);
+//	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[y_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[y_dwn]^STM Status^Status^Digital input 2'}
+	M2: DUT_MotionStage;		
+//	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_up]^STM Status^Status^Digital input 2'}	
+	M3: DUT_MotionStage;
+//	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_dwn]^STM Status^Status^Digital input 2'}
+	M4: DUT_MotionStage;
+//	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[pitch]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[pitch]^STM Status^Status^Digital input 2'}	
+	M5: DUT_MotionStage;
+	
+	fbMotionStage_x_up, fbMotionStage_x_dwn, fbMotionStage_y_up, fbMotionStage_y_dwn, fbMotionStage_pitch : FB_MotionStage;
+	
+	enable: BOOL := TRUE;
+	sto AT %I*: BOOL;
+	x_position, y_position: LREAL;
+	x_velocity: LREAL := 0.2;
+	y_velocity: LREAL :=0.05;
+	
+	dx, dy: LREAL;		
+	{attribute 'TcLinkTo' := '.Count:=TIIB[1-x_up_2-x_dwn]^FB Inputs Channel 1^Position'}	
+	x_up_enc  AT %I*: ST_RenishawAbsEnc;
+	{attribute 'TcLinkTo' := '.Count:=TIIB[1-x_up_2-x_dwn]^FB Inputs Channel 2^Position'}
+	x_dwn_enc  AT %I*: ST_RenishawAbsEnc;
+	
+	{attribute 'TcLinkTo' := '.Count:=TIIB[1-y_up_2-y_dwn]^FB Inputs Channel 1^Position'}	
+	y_up_enc  AT %I*: ST_RenishawAbsEnc;
+	{attribute 'TcLinkTo' := '.Count:=TIIB[1-y_up_2-y_dwn]^FB Inputs Channel 2^Position'}
+	y_dwn_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=0);
+
+	x_limit_gantry, y_limit_gantry: FB_GantryDiffVirtualLimitSwitch;
+
+	x_start, y_start: BOOL;
+END_VAR	
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[M1.bSTO := sto;
+M2.bSTO := sto;
+M3.bSTO := sto; 
+M4.bSTO := sto;
+ 
+y_limit_gantry(PEnc:=y_up_enc, SEnc:=y_dwn_enc, GantDiffTol:=50000,
+				PLimFwd=>M1.bLimGntFwd, PLimBwd=>M1.bLimGntBwd,
+				PLimFwd=>M2.bLimGntFwd, PLimBwd=>M2.bLimGntBwd
+);
+
+x_limit_gantry(PEnc:=x_up_enc, SEnc:=x_dwn_enc, GantDiffTol:=50000,
+				PLimFwd=>M3.bLimGntFwd, PLimBwd=>M3.bLimGntBwd,
+				PLimFwd=>M3.bLimGntFwd, PLimBwd=>M4.bLimGntBwd
+);
+
+fbMotionStage_y_up  (stMotionStage:=M1);
+fbMotionStage_y_dwn (stMotionStage:=M2);
+fbMotionStage_x_up  (stMotionStage:=M3);
+fbMotionStage_x_dwn (stMotionStage:=M4);
+fbMotionStage_pitch (stMotionStage:=M5);
+	
+
+	dx := M3.Axis.NcToPlc.ActPos - M4.Axis.NcToPlc.ActPos;
+	dy := M1.Axis.NcToPlc.ActPos - M2.Axis.NcToPlc.ActPos;
+	
+x_couple ( Master:=M1.Axis, Slave:=M2.Axis, Execute:=(M3.bEnabled AND M4.bEnabled AND x_couple_start));
+y_couple ( Master:=M3.Axis, Slave:=M4.Axis, Execute:=(M1.bEnabled AND M2.bEnabled AND y_couple_start));	
+
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="49" Count="25" />
+      <LineId Id="78" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

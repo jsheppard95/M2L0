@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.14">
+  <DUT Name="ST_RenishawEnc" Id="{61e43173-9c31-4236-a1f4-75f2a94357b5}">
+    <Declaration><![CDATA[TYPE ST_RenishawEnc :
+STRUCT
+	Count	:	ULINT;
+	Status	:	BOOL;
+	Ref		:	ULINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
