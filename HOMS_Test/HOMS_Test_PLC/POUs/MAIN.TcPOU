@@ -46,19 +46,21 @@ VAR
 END_VAR	
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[M1.bSTO := sto;
+      <ST><![CDATA[y_up_enc.Count := LREAL_TO_ULINT(M1.stAxisStatus.fActPosition * EXPT(10, 6));
+y_dwn_enc.Count := LREAL_TO_ULINT(M2.stAxisStatus.fActPosition * 1000 * EXPT(10, 6));
+M1.bSTO := sto;
 M2.bSTO := sto;
 M3.bSTO := sto; 
 M4.bSTO := sto;
- 
-y_limit_gantry(PEnc:=y_up_enc, SEnc:=y_dwn_enc, GantDiffTol:=50000,
+
+y_limit_gantry(PEnc:=y_up_enc, SEnc:=y_dwn_enc, GantDiffTol:=LREAL_TO_LINT(M1.fGantryTol),
 				PLimFwd=>M1.bLimGntFwd, PLimBwd=>M1.bLimGntBwd,
-				PLimFwd=>M2.bLimGntFwd, PLimBwd=>M2.bLimGntBwd
+				SLimFwd=>M2.bLimGntFwd, SLimBwd=>M2.bLimGntBwd
 );
 
-x_limit_gantry(PEnc:=x_up_enc, SEnc:=x_dwn_enc, GantDiffTol:=50000,
+x_limit_gantry(PEnc:=x_up_enc, SEnc:=x_dwn_enc, GantDiffTol:=LREAL_TO_LINT(M3.fGantryTol),
 				PLimFwd=>M3.bLimGntFwd, PLimBwd=>M3.bLimGntBwd,
-				PLimFwd=>M3.bLimGntFwd, PLimBwd=>M4.bLimGntBwd
+				PLimFwd=>M4.bLimGntFwd, PLimBwd=>M4.bLimGntBwd
 );
 
 fbMotionStage_y_up  (stMotionStage:=M1);
@@ -71,14 +73,16 @@ fbMotionStage_pitch (stMotionStage:=M5);
 	dx := M3.Axis.NcToPlc.ActPos - M4.Axis.NcToPlc.ActPos;
 	dy := M1.Axis.NcToPlc.ActPos - M2.Axis.NcToPlc.ActPos;
 	
-x_couple ( Master:=M1.Axis, Slave:=M2.Axis, Execute:=(M3.bEnabled AND M4.bEnabled AND x_couple_start));
-y_couple ( Master:=M3.Axis, Slave:=M4.Axis, Execute:=(M1.bEnabled AND M2.bEnabled AND y_couple_start));	
+x_couple ( Master:=M3.Axis, Slave:=M4.Axis, Execute:=(M3.bEnabled AND M4.bEnabled AND x_couple_start));
+y_couple ( Master:=M1.Axis, Slave:=M2.Axis, Execute:=(M1.bEnabled AND M2.bEnabled AND y_couple_start));	
 
 
 
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
+      <LineId Id="126" Count="0" />
+      <LineId Id="125" Count="0" />
       <LineId Id="49" Count="25" />
       <LineId Id="78" Count="3" />
       <LineId Id="2" Count="0" />
