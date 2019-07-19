@@ -47,7 +47,7 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[y_up_enc.Count := LREAL_TO_ULINT(M1.stAxisStatus.fActPosition * EXPT(10, 6));
-y_dwn_enc.Count := LREAL_TO_ULINT(M2.stAxisStatus.fActPosition * 1000 * EXPT(10, 6));
+y_dwn_enc.Count := LREAL_TO_ULINT(M2.stAxisStatus.fActPosition * EXPT(10, 6));
 M1.bSTO := sto;
 M2.bSTO := sto;
 M3.bSTO := sto; 
@@ -60,7 +60,7 @@ y_limit_gantry(PEnc:=y_up_enc, SEnc:=y_dwn_enc, GantDiffTol:=LREAL_TO_LINT(M1.fG
 
 x_limit_gantry(PEnc:=x_up_enc, SEnc:=x_dwn_enc, GantDiffTol:=LREAL_TO_LINT(M3.fGantryTol),
 				PLimFwd=>M3.bLimGntFwd, PLimBwd=>M3.bLimGntBwd,
-				PLimFwd=>M4.bLimGntFwd, PLimBwd=>M4.bLimGntBwd
+				SLimFwd=>M4.bLimGntFwd, SLimBwd=>M4.bLimGntBwd
 );
 
 fbMotionStage_y_up  (stMotionStage:=M1);
