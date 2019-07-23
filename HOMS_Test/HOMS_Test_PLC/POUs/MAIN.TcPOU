@@ -13,7 +13,7 @@ VAR
 	{attribute 'TcLinkTo':='.bLimFwd:=TIIB[y_up]^STM Status^Status^Digital input 1'}		
     M1: DUT_MotionStage:=(nEnableMode:=0);
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[y_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[y_dwn]^STM Status^Status^Digital input 2'}
-	M2: DUT_MotionStage;		
+	M2: DUT_MotionStage:=(nEnableMode:=0);		
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_up]^STM Status^Status^Digital input 2'}	
 	M3: DUT_MotionStage;
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_dwn]^STM Status^Status^Digital input 2'}
@@ -43,6 +43,11 @@ VAR
 	x_limit_gantry, y_limit_gantry: FB_GantryDiffVirtualLimitSwitch;
 
 	x_start, y_start: BOOL;
+
+	// Decouple Axes when gantry too large
+	GantryDiff : LINT;
+	decouple : MC_GEAROUT;
+	stop_axis : MC_HALT;
 	
 	// Fwd/Bwd Enables to monitor:
 	bM1Fwd : BOOL;
@@ -58,11 +63,25 @@ bM1Bwd := M1.bLimAllBwd;
 bM2Fwd := M2.bLimAllFwd;
 bM2Bwd := M2.bLimAllBwd;
 
+// Startup Parameters while Testing/Debugging:
+sto := TRUE;
+M1.bLimFwd := TRUE;
+M1.bLimBwd := TRUE;
+M1.bGantryAxis := TRUE;
+M1.fGantryTol := 100;
+M1.nCommand := 3;
+M2.bLimFwd := TRUE;
+M2.bLimBwd := TRUE;
+M2.bGantryAxis := TRUE;
+M2.fGantryTol := 100;
+
+// Pretend Encoder counts
 y_up_enc.Count := LREAL_TO_ULINT(M1.stAxisStatus.fActPosition * 1000 * EXPT(10, 6));
 y_dwn_enc.Count := LREAL_TO_ULINT(M2.stAxisStatus.fActPosition * EXPT(10, 6));
+
 M1.bSTO := sto;
 M2.bSTO := sto;
-M3.bSTO := sto; 
+M3.bSTO := sto;
 M4.bSTO := sto;
 
 y_limit_gantry(PEnc:=y_up_enc, SEnc:=y_dwn_enc, GantDiffTol:=LREAL_TO_LINT(M1.fGantryTol),
@@ -88,17 +107,44 @@ fbMotionStage_pitch (stMotionStage:=M5);
 x_couple ( Master:=M3.Axis, Slave:=M4.Axis, Execute:=(M3.bEnabled AND M4.bEnabled AND x_couple_start));
 y_couple ( Master:=M1.Axis, Slave:=M2.Axis, Execute:=(M1.bEnabled AND M2.bEnabled AND y_couple_start));	
 
+GantryDiff := ( ULINT_TO_LINT(y_up_enc.Count) - ULINT_TO_LINT(y_up_enc.Ref) ) - ( ULINT_TO_LINT(y_dwn_enc.Count) - ULINT_TO_LINT(y_dwn_enc.Ref) );
 
+IF ABS(GantryDiff) > M1.fGantryTol THEN
+	y_couple_start := FALSE;
+	M1.bExecute := FALSE;
+	M2.bExecute := FALSE;
+	IF NOT (M1.bBusy OR M2.bBusy) THEN
+		decouple( Slave:=M2.Axis, Execute:=TRUE );
+	END_IF
+END_IF
 
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="182" Count="3" />
-      <LineId Id="180" Count="1" />
+      <LineId Id="252" Count="0" />
+      <LineId Id="257" Count="0" />
+      <LineId Id="254" Count="0" />
+      <LineId Id="258" Count="0" />
+      <LineId Id="255" Count="1" />
+      <LineId Id="259" Count="5" />
+      <LineId Id="180" Count="0" />
+      <LineId Id="266" Count="0" />
+      <LineId Id="181" Count="0" />
       <LineId Id="126" Count="0" />
       <LineId Id="125" Count="0" />
+      <LineId Id="265" Count="0" />
       <LineId Id="49" Count="25" />
-      <LineId Id="78" Count="3" />
+      <LineId Id="78" Count="1" />
+      <LineId Id="235" Count="0" />
+      <LineId Id="237" Count="0" />
+      <LineId Id="250" Count="0" />
+      <LineId Id="267" Count="1" />
+      <LineId Id="273" Count="0" />
+      <LineId Id="272" Count="0" />
+      <LineId Id="274" Count="0" />
+      <LineId Id="239" Count="0" />
+      <LineId Id="80" Count="1" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
