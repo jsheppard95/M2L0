@@ -59,7 +59,9 @@ VAR
 	bM2Bwd : BOOL;
 	
 	// Encoder fudge factor to simulate gantry difference
-	fEncFudgeFactor : REAL := 1.05;
+	fEncFudgeFactor : REAL := 1.0;
+	
+	fbGantryFixRTRIG: R_TRIG;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -79,7 +81,7 @@ M1.nCommand := 3;
 M2.bLimFwd := TRUE;
 M2.bLimBwd := TRUE;
 M2.bGantryAxis := TRUE;
-M2.fGantryTol := 100;
+M2.fGantryTol := 200;
 
 // Pretend Encoder counts
 y_up_enc.Count := LREAL_TO_ULINT(M1.stAxisStatus.fActPosition * EXPT(10, 6));
@@ -115,7 +117,7 @@ y_couple ( Master:=M1.Axis, Slave:=M2.Axis, Execute:=(M1.bEnabled AND M2.bEnable
 
 GantryDiff := ( ULINT_TO_LINT(y_up_enc.Count) - ULINT_TO_LINT(y_up_enc.Ref) ) - ( ULINT_TO_LINT(y_dwn_enc.Count) - ULINT_TO_LINT(y_dwn_enc.Ref) );
 
-IF ABS(GantryDiff) > M1.fGantryTol THEN
+IF ABS(GantryDiff) > M1.fGantryTol AND NOT bGantryFixMode THEN
 	y_couple_start := FALSE;
 	M1.bExecute := FALSE;
 	M2.bExecute := FALSE;
@@ -129,9 +131,12 @@ IF ABS(GantryDiff) > M1.fGantryTol THEN
 	END_IF
 END_IF
 
-IF bGantryFixMode THEN
+fbGantryFixRTRIG(CLK:=bGantryFixMode);
+IF fbGantryFixRTRIG.Q THEN
 	M1.bReset := TRUE;
 	M2.bReset := TRUE;
+	bStopAxis := FALSE;
+	bExecuteDecouple := FALSE;
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
@@ -162,8 +167,12 @@ END_IF]]></ST>
       <LineId Id="357" Count="0" />
       <LineId Id="274" Count="0" />
       <LineId Id="239" Count="0" />
-      <LineId Id="352" Count="1" />
+      <LineId Id="352" Count="0" />
+      <LineId Id="426" Count="0" />
+      <LineId Id="353" Count="0" />
       <LineId Id="358" Count="1" />
+      <LineId Id="420" Count="0" />
+      <LineId Id="427" Count="0" />
       <LineId Id="355" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
