@@ -48,13 +48,19 @@ VAR
 	GantryDiff : LINT;
 	decouple : MC_GEAROUT;
 	stop_axis : MC_HALT;
+	bExecuteDecouple : BOOL;
+	bStopAxis : BOOL;
+	bGantryFixMode : BOOL;
 	
 	// Fwd/Bwd Enables to monitor:
 	bM1Fwd : BOOL;
 	bM1Bwd : BOOL;
 	bM2Fwd : BOOL;
 	bM2Bwd : BOOL;
-END_VAR	
+	
+	// Encoder fudge factor to simulate gantry difference
+	fEncFudgeFactor : REAL := 1.05;
+END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[// Fwd/Bwd Enables to monitor:
@@ -76,8 +82,8 @@ M2.bGantryAxis := TRUE;
 M2.fGantryTol := 100;
 
 // Pretend Encoder counts
-y_up_enc.Count := LREAL_TO_ULINT(M1.stAxisStatus.fActPosition * 1000 * EXPT(10, 6));
-y_dwn_enc.Count := LREAL_TO_ULINT(M2.stAxisStatus.fActPosition * EXPT(10, 6));
+y_up_enc.Count := LREAL_TO_ULINT(M1.stAxisStatus.fActPosition * EXPT(10, 6));
+y_dwn_enc.Count := LREAL_TO_ULINT(M2.stAxisStatus.fActPosition * fEncFudgeFactor * EXPT(10, 6));
 
 M1.bSTO := sto;
 M2.bSTO := sto;
@@ -113,12 +119,20 @@ IF ABS(GantryDiff) > M1.fGantryTol THEN
 	y_couple_start := FALSE;
 	M1.bExecute := FALSE;
 	M2.bExecute := FALSE;
-	IF NOT (M1.bBusy OR M2.bBusy) THEN
-		decouple( Slave:=M2.Axis, Execute:=TRUE );
+//	IF NOT (M1.bBusy OR M2.bBusy) THEN // BUG: M2.bBusy never resets to FALSE - likely due to it being a slave axis
+	IF NOT M1.bBusy THEN
+		bExecuteDecouple := TRUE;
+		bStopAxis := TRUE;
+		decouple( Slave:=M2.Axis, Execute:=bExecuteDecouple );
+		stop_axis( Axis:=M2.Axis, Execute:=bStopAxis );
+		stop_axis( Axis:=M1.Axis, Execute:=bStopAxis );
 	END_IF
 END_IF
 
-]]></ST>
+IF bGantryFixMode THEN
+	M1.bReset := TRUE;
+	M2.bReset := TRUE;
+END_IF]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="182" Count="3" />
@@ -142,9 +156,15 @@ END_IF
       <LineId Id="267" Count="1" />
       <LineId Id="273" Count="0" />
       <LineId Id="272" Count="0" />
+      <LineId Id="351" Count="0" />
+      <LineId Id="332" Count="0" />
+      <LineId Id="329" Count="1" />
+      <LineId Id="357" Count="0" />
       <LineId Id="274" Count="0" />
       <LineId Id="239" Count="0" />
-      <LineId Id="80" Count="1" />
+      <LineId Id="352" Count="1" />
+      <LineId Id="358" Count="1" />
+      <LineId Id="355" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
