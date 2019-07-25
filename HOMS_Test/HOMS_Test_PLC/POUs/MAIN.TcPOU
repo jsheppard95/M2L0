@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.14">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <POU Name="MAIN" Id="{d73f6033-1c1a-47a8-be0f-3a700ab10cd1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Main
 VAR
@@ -67,6 +67,8 @@ VAR
 	fEncFudgeFactor : REAL := 1.005;
 	
 	fbGantryFixRTRIG: R_TRIG;
+	// Set true once all axes initialize and couple as needed.
+	xInitComplete: BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -111,10 +113,21 @@ y_limit_gantry(PEnc:=y_up_enc, SEnc:=y_dwn_enc, GantDiffTol:=LREAL_TO_LINT(M1.fG
 				SLimFwd=>M2.bLimGntFwd, SLimBwd=>M2.bLimGntBwd
 );
 
+
+
+
 x_limit_gantry(PEnc:=x_up_enc, SEnc:=x_dwn_enc, GantDiffTol:=LREAL_TO_LINT(M3.fGantryTol),
 				PLimFwd=>M3.bLimGntFwd, PLimBwd=>M3.bLimGntBwd,
 				SLimFwd=>M4.bLimGntFwd, SLimBwd=>M4.bLimGntBwd
 );
+
+IF M4.Axis.Status.Coupled THEN
+	M3.bLimGntFwd := M3.bLimGntFwd AND M4.bLimGntFwd;
+	M4.bLimGntFwd := M3.bLimGntFwd AND M4.bLimGntFwd;
+	
+	M3.bLimGntBwd := M3.bLimGntBwd AND M4.bLimGntBwd;
+	M4.bLimGntBwd := M3.bLimGntBwd AND M4.bLimGntBwd;
+END_IF
 
 fbMotionStage_y_up  (stMotionStage:=M1);
 fbMotionStage_y_dwn (stMotionStage:=M2);
@@ -125,8 +138,21 @@ fbMotionStage_pitch (stMotionStage:=M5);
 
 	dx := M3.Axis.NcToPlc.ActPos - M4.Axis.NcToPlc.ActPos;
 	dy := M1.Axis.NcToPlc.ActPos - M2.Axis.NcToPlc.ActPos;
+
 	
-x_couple ( Master:=M3.Axis, Slave:=M4.Axis, Execute:=(M3.bEnabled AND M4.bEnabled AND x_couple_start));
+// Auto-coupling at init and auto-reset of coupling boolean	
+x_couple_start S= NOT xInitComplete;	
+	
+x_couple_start R= x_couple.Busy OR NOT M3.Axis.Status.StandStill OR NOT M4.axis.Status.StandStill;	
+x_couple ( Master:=M3.Axis, Slave:=M4.Axis, Execute:=(x_couple_start));
+
+xInitComplete S= M4.Axis.Status.Coupled;
+
+// Decoupling with auto-reset of decouple boolean
+bExecuteDecoupleX R= decoupleX.Busy OR NOT M3.Axis.Status.StandStill OR NOT M4.axis.Status.StandStill;
+decoupleX( Slave:=M4.Axis, Execute:=bExecuteDecoupleX );
+
+
 y_couple ( Master:=M1.Axis, Slave:=M2.Axis, Execute:=(M1.bEnabled AND M2.bEnabled AND y_couple_start));	
 
 // Make limit switches respect Gantry Motion and monitor gantry difference:
@@ -164,7 +190,7 @@ IF fbGantryFixRTRIG.Q THEN
 	bStopAxisY := FALSE;
 	bExecuteDecoupleY := FALSE;
 END_IF
-
+(*
 IF ABS(GantryDiffX) > M3.fGantryTol AND NOT bGantryFixModeX THEN
 	x_couple_start := FALSE;
 	M3.bExecute := FALSE;
@@ -184,7 +210,9 @@ IF fbGantryFixRTRIG.Q THEN
 	M4.bReset := TRUE;
 	bStopAxisX := FALSE;
 	bExecuteDecoupleX := FALSE;
-END_IF]]></ST>
+END_IF
+
+*)]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="182" Count="3" />
@@ -203,7 +231,28 @@ END_IF]]></ST>
       <LineId Id="598" Count="2" />
       <LineId Id="597" Count="0" />
       <LineId Id="265" Count="0" />
-      <LineId Id="49" Count="25" />
+      <LineId Id="49" Count="8" />
+      <LineId Id="672" Count="0" />
+      <LineId Id="670" Count="1" />
+      <LineId Id="58" Count="4" />
+      <LineId Id="689" Count="3" />
+      <LineId Id="695" Count="0" />
+      <LineId Id="693" Count="1" />
+      <LineId Id="688" Count="0" />
+      <LineId Id="63" Count="9" />
+      <LineId Id="696" Count="0" />
+      <LineId Id="682" Count="0" />
+      <LineId Id="697" Count="0" />
+      <LineId Id="678" Count="0" />
+      <LineId Id="683" Count="0" />
+      <LineId Id="677" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="681" Count="0" />
+      <LineId Id="680" Count="0" />
+      <LineId Id="704" Count="0" />
+      <LineId Id="703" Count="0" />
+      <LineId Id="698" Count="2" />
+      <LineId Id="679" Count="0" />
       <LineId Id="78" Count="0" />
       <LineId Id="490" Count="0" />
       <LineId Id="558" Count="0" />
@@ -236,6 +285,8 @@ END_IF]]></ST>
       <LineId Id="355" Count="0" />
       <LineId Id="566" Count="20" />
       <LineId Id="2" Count="0" />
+      <LineId Id="687" Count="0" />
+      <LineId Id="686" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
