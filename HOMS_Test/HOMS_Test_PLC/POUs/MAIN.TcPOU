@@ -15,9 +15,9 @@ VAR
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[y_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[y_dwn]^STM Status^Status^Digital input 2'}
 	M2: DUT_MotionStage:=(nEnableMode:=0);		
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_up]^STM Status^Status^Digital input 2'}	
-	M3: DUT_MotionStage;
+	M3: DUT_MotionStage:=(nEnableMode:=0);
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_dwn]^STM Status^Status^Digital input 2'}
-	M4: DUT_MotionStage;
+	M4: DUT_MotionStage:=(nEnableMode:=0);
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[pitch]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[pitch]^STM Status^Status^Digital input 2'}	
 	M5: DUT_MotionStage;
 	
@@ -45,12 +45,17 @@ VAR
 	x_start, y_start: BOOL;
 
 	// Decouple Axes when gantry too large
-	GantryDiff : LINT;
-	decouple : MC_GEAROUT;
+	GantryDiffY : LINT;
+	GantryDiffX : LINT;
+	decoupleY : MC_GEAROUT;
+	decoupleX : MC_GEAROUT;
 	stop_axis : MC_HALT;
-	bExecuteDecouple : BOOL;
-	bStopAxis : BOOL;
-	bGantryFixMode : BOOL;
+	bExecuteDecoupleY : BOOL;
+	bExecuteDecoupleX : BOOL;
+	bStopAxisY : BOOL;
+	bStopAxisX : BOOL;
+	bGantryFixModeY : BOOL;
+	bGantryFixModeX : BOOL;
 	
 	// Fwd/Bwd Enables to monitor:
 	bM1Fwd : BOOL;
@@ -59,7 +64,7 @@ VAR
 	bM2Bwd : BOOL;
 	
 	// Encoder fudge factor to simulate gantry difference
-	fEncFudgeFactor : REAL := 1.0;
+	fEncFudgeFactor : REAL := 1.005;
 	
 	fbGantryFixRTRIG: R_TRIG;
 END_VAR
@@ -73,19 +78,28 @@ bM2Bwd := M2.bLimAllBwd;
 
 // Startup Parameters while Testing/Debugging:
 sto := TRUE;
-M1.bLimFwd := TRUE;
-M1.bLimBwd := TRUE;
+//M1.bLimFwd := TRUE;
+//M1.bLimBwd := TRUE;
 M1.bGantryAxis := TRUE;
 M1.fGantryTol := 100;
 M1.nCommand := 3;
-M2.bLimFwd := TRUE;
-M2.bLimBwd := TRUE;
+//M2.bLimFwd := TRUE;
+//M2.bLimBwd := TRUE;
 M2.bGantryAxis := TRUE;
 M2.fGantryTol := 200;
+M3.bGantryAxis := TRUE;
+M3.fGantryTol := 100;
+M3.nCommand := 3;
+M4.bGantryAxis := TRUE;
+M4.fGantryTol := 100;
 
 // Pretend Encoder counts
 y_up_enc.Count := LREAL_TO_ULINT(M1.stAxisStatus.fActPosition * EXPT(10, 6));
 y_dwn_enc.Count := LREAL_TO_ULINT(M2.stAxisStatus.fActPosition * fEncFudgeFactor * EXPT(10, 6));
+
+// Pretend Encoder counts
+x_up_enc.Count := LREAL_TO_ULINT(M3.stAxisStatus.fActPosition * EXPT(10, 6));
+x_dwn_enc.Count := LREAL_TO_ULINT(M4.stAxisStatus.fActPosition * fEncFudgeFactor * EXPT(10, 6));
 
 M1.bSTO := sto;
 M2.bSTO := sto;
@@ -115,28 +129,61 @@ fbMotionStage_pitch (stMotionStage:=M5);
 x_couple ( Master:=M3.Axis, Slave:=M4.Axis, Execute:=(M3.bEnabled AND M4.bEnabled AND x_couple_start));
 y_couple ( Master:=M1.Axis, Slave:=M2.Axis, Execute:=(M1.bEnabled AND M2.bEnabled AND y_couple_start));	
 
-GantryDiff := ( ULINT_TO_LINT(y_up_enc.Count) - ULINT_TO_LINT(y_up_enc.Ref) ) - ( ULINT_TO_LINT(y_dwn_enc.Count) - ULINT_TO_LINT(y_dwn_enc.Ref) );
+// Make limit switches respect Gantry Motion and monitor gantry difference:
+// Y Gantry
+M1.bLimAllFwd := M1.bLimFwd AND ((M1.bLimGntFwd AND M2.bLimFwd) OR NOT M1.bGantryAxis);
+M1.bLimAllBwd := M1.bLimBwd AND ((M1.bLimGntBwd AND M2.bLimBwd) OR NOT M1.bGantryAxis);
+M2.bLimAllFwd := M2.bLimFwd AND ((M2.bLimGntFwd AND M1.bLimFwd) OR NOT M2.bGantryAxis);
+M2.bLimAllBwd := M2.bLimBwd AND ((M2.bLimGntBwd AND M1.bLimBwd) OR NOT M2.bGantryAxis);
+// X Gantry
+M3.bLimAllFwd := M3.bLimFwd AND ((M3.bLimGntFwd AND M4.bLimFwd) OR NOT M3.bGantryAxis);
+M3.bLimAllBwd := M3.bLimBwd AND ((M3.bLimGntBwd AND M4.bLimBwd) OR NOT M3.bGantryAxis);
+M4.bLimAllFwd := M4.bLimFwd AND ((M4.bLimGntFwd AND M3.bLimFwd) OR NOT M4.bGantryAxis);
+M4.bLimAllBwd := M4.bLimBwd AND ((M4.bLimGntBwd AND M3.bLimBwd) OR NOT M4.bGantryAxis);
 
-IF ABS(GantryDiff) > M1.fGantryTol AND NOT bGantryFixMode THEN
+GantryDiffY := ( ULINT_TO_LINT(y_up_enc.Count) - ULINT_TO_LINT(y_up_enc.Ref) ) - ( ULINT_TO_LINT(y_dwn_enc.Count) - ULINT_TO_LINT(y_dwn_enc.Ref) );
+GantryDiffX := ( ULINT_TO_LINT(x_up_enc.Count) - ULINT_TO_LINT(x_up_enc.Ref) ) - ( ULINT_TO_LINT(x_dwn_enc.Count) - ULINT_TO_LINT(x_dwn_enc.Ref) );
+
+IF ABS(GantryDiffY) > M1.fGantryTol AND NOT bGantryFixModeY THEN
 	y_couple_start := FALSE;
 	M1.bExecute := FALSE;
 	M2.bExecute := FALSE;
-//	IF NOT (M1.bBusy OR M2.bBusy) THEN // BUG: M2.bBusy never resets to FALSE - likely due to it being a slave axis
-	IF NOT M1.bBusy THEN
-		bExecuteDecouple := TRUE;
-		bStopAxis := TRUE;
-		decouple( Slave:=M2.Axis, Execute:=bExecuteDecouple );
-		stop_axis( Axis:=M2.Axis, Execute:=bStopAxis );
-		stop_axis( Axis:=M1.Axis, Execute:=bStopAxis );
+	IF NOT M1.bBusy THEN // TODO: Shold check if M2 also busy, not properly resetting due to being slave axis
+		bExecuteDecoupleY := TRUE;
+		bStopAxisY := TRUE;
+		decoupleY( Slave:=M2.Axis, Execute:=bExecuteDecoupleY );
+		stop_axis( Axis:=M2.Axis, Execute:=bStopAxisY );
+		stop_axis( Axis:=M1.Axis, Execute:=bStopAxisY );
 	END_IF
 END_IF
 
-fbGantryFixRTRIG(CLK:=bGantryFixMode);
+fbGantryFixRTRIG(CLK:=bGantryFixModeY);
 IF fbGantryFixRTRIG.Q THEN
 	M1.bReset := TRUE;
 	M2.bReset := TRUE;
-	bStopAxis := FALSE;
-	bExecuteDecouple := FALSE;
+	bStopAxisY := FALSE;
+	bExecuteDecoupleY := FALSE;
+END_IF
+
+IF ABS(GantryDiffX) > M3.fGantryTol AND NOT bGantryFixModeX THEN
+	x_couple_start := FALSE;
+	M3.bExecute := FALSE;
+	M4.bExecute := FALSE;
+	IF NOT M3.bBusy THEN // TODO: Shold check if M4 also busy, not properly resetting due to being slave axis
+		bExecuteDecoupleX := TRUE;
+		bStopAxisX := TRUE;
+		decoupleX( Slave:=M4.Axis, Execute:=bExecuteDecoupleX );
+		stop_axis( Axis:=M4.Axis, Execute:=bStopAxisX );
+		stop_axis( Axis:=M3.Axis, Execute:=bStopAxisX );
+	END_IF
+END_IF
+
+fbGantryFixRTRIG(CLK:=bGantryFixModeX);
+IF fbGantryFixRTRIG.Q THEN
+	M3.bReset := TRUE;
+	M4.bReset := TRUE;
+	bStopAxisX := FALSE;
+	bExecuteDecoupleX := FALSE;
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
@@ -147,19 +194,32 @@ END_IF]]></ST>
       <LineId Id="258" Count="0" />
       <LineId Id="255" Count="1" />
       <LineId Id="259" Count="5" />
+      <LineId Id="592" Count="4" />
       <LineId Id="180" Count="0" />
       <LineId Id="266" Count="0" />
       <LineId Id="181" Count="0" />
       <LineId Id="126" Count="0" />
       <LineId Id="125" Count="0" />
+      <LineId Id="598" Count="2" />
+      <LineId Id="597" Count="0" />
       <LineId Id="265" Count="0" />
       <LineId Id="49" Count="25" />
-      <LineId Id="78" Count="1" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="490" Count="0" />
+      <LineId Id="558" Count="0" />
+      <LineId Id="492" Count="0" />
+      <LineId Id="491" Count="0" />
+      <LineId Id="493" Count="0" />
+      <LineId Id="495" Count="0" />
+      <LineId Id="494" Count="0" />
+      <LineId Id="560" Count="3" />
+      <LineId Id="559" Count="0" />
+      <LineId Id="79" Count="0" />
       <LineId Id="235" Count="0" />
+      <LineId Id="564" Count="0" />
       <LineId Id="237" Count="0" />
       <LineId Id="250" Count="0" />
       <LineId Id="267" Count="1" />
-      <LineId Id="273" Count="0" />
       <LineId Id="272" Count="0" />
       <LineId Id="351" Count="0" />
       <LineId Id="332" Count="0" />
@@ -174,6 +234,7 @@ END_IF]]></ST>
       <LineId Id="420" Count="0" />
       <LineId Id="427" Count="0" />
       <LineId Id="355" Count="0" />
+      <LineId Id="566" Count="20" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
