@@ -11,13 +11,13 @@ VAR
 
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[y_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[y_up]^STM Status^Status^Digital input 2; .bSTO:=TIIB[di]^Channel 1^Input'}	
 	{attribute 'TcLinkTo':='.bLimFwd:=TIIB[y_up]^STM Status^Status^Digital input 1'}		
-    M1: DUT_MotionStage:=(nEnableMode:=0);
+    M1: DUT_MotionStage; // Set nEnableMode := 0 to enable each axis
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[y_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[y_dwn]^STM Status^Status^Digital input 2'}
-	M2: DUT_MotionStage:=(nEnableMode:=0);		
+	M2: DUT_MotionStage;		
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_up]^STM Status^Status^Digital input 2'}	
-	M3: DUT_MotionStage:=(nEnableMode:=0);
+	M3: DUT_MotionStage;
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_dwn]^STM Status^Status^Digital input 2'}
-	M4: DUT_MotionStage:=(nEnableMode:=0);
+	M4: DUT_MotionStage;
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[pitch]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[pitch]^STM Status^Status^Digital input 2'}	
 	M5: DUT_MotionStage;
 	
@@ -70,17 +70,16 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[// Startup Parameters while Testing/Debugging:
-sto := TRUE;
 M1.bGantryAxis := TRUE;
-M1.fGantryTol := 100;
+M1.fGantryTol := 4000;
 M1.nCommand := 3;
 M2.bGantryAxis := TRUE;
-M2.fGantryTol := 100;
+M2.fGantryTol := M1.fGantryTol;
 M3.bGantryAxis := TRUE;
-M3.fGantryTol := 100;
+M3.fGantryTol := 4000;
 M3.nCommand := 3;
 M4.bGantryAxis := TRUE;
-M4.fGantryTol := 100;
+M4.fGantryTol := M3.fGantryTol;
 
 (*
 // Pretend Encoder counts
@@ -169,7 +168,6 @@ bExecuteDecoupleY R= decoupleY.Busy OR NOT yGantryAlreadyCoupled;
 decoupleX( Slave:=M2.Axis, Execute:=bExecuteDecoupleY );]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="254" Count="0" />
       <LineId Id="256" Count="0" />
       <LineId Id="259" Count="1" />
       <LineId Id="263" Count="1" />
