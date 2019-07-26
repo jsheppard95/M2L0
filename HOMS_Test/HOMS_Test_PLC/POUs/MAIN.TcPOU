@@ -58,7 +58,7 @@ VAR
 	bGantryFixModeX : BOOL;
 
 	// Encoder fudge factor to simulate gantry difference
-	fEncFudgeFactor : REAL := 1.005;
+	fEncFudgeFactor : REAL := 1.0;
 
 	fbGantryFixRTRIG: R_TRIG;
 	// Set true once all axes initialize and couple as needed.
@@ -82,12 +82,14 @@ M3.nCommand := 3;
 M4.bGantryAxis := TRUE;
 M4.fGantryTol := 100;
 
+(*
 // Pretend Encoder counts
 y_up_enc.Count := LREAL_TO_ULINT(M1.stAxisStatus.fActPosition * EXPT(10, 6));
 y_dwn_enc.Count := LREAL_TO_ULINT(M2.stAxisStatus.fActPosition * fEncFudgeFactor * EXPT(10, 6));
 
-x_up_enc.Count := LREAL_TO_ULINT(M3.stAxisStatus.fActPosition * EXPT(10, 6));
-x_dwn_enc.Count := LREAL_TO_ULINT(M4.stAxisStatus.fActPosition * fEncFudgeFactor * EXPT(10, 6));
+x_up_enc.Count := LREAL_TO_ULINT(M3.stAxisStatus.fActPosition * fEncFudgeFactor * EXPT(10, 6));
+x_dwn_enc.Count := LREAL_TO_ULINT(M4.stAxisStatus.fActPosition * EXPT(10, 6));
+*)
 
 // Add Stop button to each axis
 M1.bSTO := sto;
@@ -143,15 +145,13 @@ dy := M1.Axis.NcToPlc.ActPos - M2.Axis.NcToPlc.ActPos;
 // X Motion coupling states
 // Auto-coupling at init and auto-reset of coupling boolean	
 x_couple_start S= NOT xInitComplete;
-
-//x_couple_start R= x_couple.Busy OR NOT M3.Axis.Status.StandStill OR NOT M4.axis.Status.StandStill;	
+	
 x_couple_start R= x_couple.Busy OR xGantryAlreadyCoupled;
 x_couple ( Master:=M3.Axis, Slave:=M4.Axis, Execute:=x_couple_start);
 
 xInitComplete S= xGantryAlreadyCoupled;
 
 // Decoupling with auto-reset of decouple boolean
-//bExecuteDecoupleX R= decoupleX.Busy OR NOT M3.Axis.Status.StandStill OR NOT M4.axis.Status.StandStill;
 bExecuteDecoupleX R= decoupleX.Busy OR NOT xGantryAlreadyCoupled;
 decoupleX( Slave:=M4.Axis, Execute:=bExecuteDecoupleX );
 
@@ -175,12 +175,14 @@ decoupleX( Slave:=M2.Axis, Execute:=bExecuteDecoupleY );]]></ST>
       <LineId Id="263" Count="1" />
       <LineId Id="592" Count="4" />
       <LineId Id="180" Count="0" />
+      <LineId Id="949" Count="0" />
       <LineId Id="266" Count="0" />
       <LineId Id="181" Count="0" />
       <LineId Id="126" Count="0" />
       <LineId Id="125" Count="0" />
       <LineId Id="599" Count="1" />
       <LineId Id="597" Count="0" />
+      <LineId Id="950" Count="0" />
       <LineId Id="855" Count="0" />
       <LineId Id="265" Count="0" />
       <LineId Id="49" Count="2" />
@@ -209,14 +211,12 @@ decoupleX( Slave:=M2.Axis, Execute:=bExecuteDecoupleY );]]></ST>
       <LineId Id="682" Count="0" />
       <LineId Id="697" Count="0" />
       <LineId Id="678" Count="0" />
-      <LineId Id="683" Count="0" />
       <LineId Id="677" Count="0" />
       <LineId Id="777" Count="0" />
       <LineId Id="73" Count="0" />
       <LineId Id="681" Count="0" />
       <LineId Id="680" Count="0" />
       <LineId Id="704" Count="0" />
-      <LineId Id="703" Count="0" />
       <LineId Id="776" Count="0" />
       <LineId Id="698" Count="2" />
       <LineId Id="862" Count="0" />
