@@ -20,15 +20,12 @@ VAR
 	M4: DUT_MotionStage;
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[pitch]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[pitch]^STM Status^Status^Digital input 2'}	
 	M5: DUT_MotionStage;
-	
+
 	fbMotionStage_x_up, fbMotionStage_x_dwn, fbMotionStage_y_up, fbMotionStage_y_dwn, fbMotionStage_pitch : FB_MotionStage;
-	
+
 	enable: BOOL := TRUE;
 	sto AT %I*: BOOL;
-	x_position, y_position: LREAL;
-	x_velocity: LREAL := 0.2;
-	y_velocity: LREAL :=0.05;
-	
+
 	dx, dy: LREAL;		
 	{attribute 'TcLinkTo' := '.Count:=TIIB[1-x_up_2-x_dwn]^FB Inputs Channel 1^Position'}	
 	x_up_enc  AT %I*: ST_RenishawAbsEnc;
@@ -42,25 +39,16 @@ VAR
 
 	x_limit_gantry, y_limit_gantry: FB_GantryDiffVirtualLimitSwitch;
 
-	x_start, y_start: BOOL;
-
 	// Decouple Axes when gantry too large
-	GantryDiffY : LINT;
-	GantryDiffX : LINT;
 	decoupleY : MC_GEAROUT;
 	decoupleX : MC_GEAROUT;
 	stop_axis : MC_HALT;
 	bExecuteDecoupleY : BOOL;
 	bExecuteDecoupleX : BOOL;
-	bStopAxisY : BOOL;
-	bStopAxisX : BOOL;
-	bGantryFixModeY : BOOL;
-	bGantryFixModeX : BOOL;
 
 	// Encoder fudge factor to simulate gantry difference
 	fEncFudgeFactor : REAL := 1.0;
 
-	fbGantryFixRTRIG: R_TRIG;
 	// Set true once all axes initialize and couple as needed.
 	xInitComplete: BOOL := FALSE;
 	yInitComplete: BOOL := FALSE;
