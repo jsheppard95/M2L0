@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmItem" TcSmVersion="1.0" TcVersion="3.1.4022.30" ClassName="CNestedPlcProjDef">
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmItem" TcSmVersion="1.0" TcVersion="3.1.4022.28" ClassName="CNestedPlcProjDef">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{4C3FC5AC-D5AA-44C6-AC5A-159774BA0F6D}" Namespace="MC" TcBaseType="true" HideType="true" IecDeclaration="DWORD;">NCTOPLC_AXIS_REF_STATE</Name>
@@ -701,12 +701,15 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{E018BDA2-FAE0-434E-82E6-6F7BFF9C5B72}" Namespace="lcls_twincat_motion_sheppard" AutoDeleteType="true">EL5042_Status</Name>
+			<Name GUID="{AC56419F-8C32-4680-A60F-1C1BA3E86A16}" Namespace="lcls_twincat_motion_sheppard" AutoDeleteType="true">EL5042_Status</Name>
 			<BitSize>0</BitSize>
 			<BaseType GUID="{FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF}"/>
+			<Hides>
+				<Hide GUID="{07078D8B-398A-4F03-93D4-CE5282ED539E}"/>
+			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{E2823162-346B-41E3-87BF-35D8CE768E9E}" Namespace="lcls_twincat_motion_sheppard" AutoDeleteType="true">ST_RenishawAbsEnc</Name>
+			<Name GUID="{57D2EC51-8B4C-4927-9BE4-E4994E0606CA}" Namespace="lcls_twincat_motion_sheppard" AutoDeleteType="true">ST_RenishawAbsEnc</Name>
 			<Comment>
 				<![CDATA[ Renishaw BiSS-C absolute encoder used with an EL5042 ]]>
 			</Comment>
@@ -728,7 +731,7 @@ External Setpoint Generation:
 			</SubItem>
 			<SubItem>
 				<Name>Status</Name>
-				<Type GUID="{E018BDA2-FAE0-434E-82E6-6F7BFF9C5B72}" Namespace="lcls_twincat_motion_sheppard">EL5042_Status</Type>
+				<Type GUID="{AC56419F-8C32-4680-A60F-1C1BA3E86A16}" Namespace="lcls_twincat_motion_sheppard">EL5042_Status</Type>
 				<Comment>
 					<![CDATA[ Status struct placeholder]]>
 				</Comment>
@@ -745,7 +748,7 @@ External Setpoint Generation:
 				<BitOffs>64</BitOffs>
 			</SubItem>
 			<Hides>
-				<Hide GUID="{63420C03-39B0-4512-A55C-2AFAEA91BA4F}"/>
+				<Hide GUID="{AD571122-7886-44BB-A255-AC14175DD2E6}"/>
 			</Hides>
 		</DataType>
 		<DataType>
@@ -933,6 +936,10 @@ External Setpoint Generation:
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
 				<Name>PlcTask Inputs</Name>
+				<Var>
+					<Name>Main.sto</Name>
+					<Type>BOOL</Type>
+				</Var>
 				<Var>
 					<Name>Main.M1.Axis.NcToPlc</Name>
 					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
@@ -1504,12 +1511,8 @@ External Setpoint Generation:
 					</SubVar>
 				</Var>
 				<Var>
-					<Name>Main.sto</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>Main.x_up_enc</Name>
-					<Type GUID="{E2823162-346B-41E3-87BF-35D8CE768E9E}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{57D2EC51-8B4C-4927-9BE4-E4994E0606CA}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1531,7 +1534,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.x_dwn_enc</Name>
-					<Type GUID="{E2823162-346B-41E3-87BF-35D8CE768E9E}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{57D2EC51-8B4C-4927-9BE4-E4994E0606CA}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1553,7 +1556,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.y_up_enc</Name>
-					<Type GUID="{E2823162-346B-41E3-87BF-35D8CE768E9E}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{57D2EC51-8B4C-4927-9BE4-E4994E0606CA}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1575,7 +1578,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.y_dwn_enc</Name>
-					<Type GUID="{E2823162-346B-41E3-87BF-35D8CE768E9E}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{57D2EC51-8B4C-4927-9BE4-E4994E0606CA}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1694,6 +1697,34 @@ External Setpoint Generation:
 	</Project>
 	<Mappings>
 		<OwnerA Name="HOMS_Test_PLC Instance">
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1100)^Term 12 (EL1004) - STO">
+				<Link VarA="PlcTask Inputs^Main.M1.bSTO" VarB="Channel 1^Input"/>
+				<Link VarA="PlcTask Inputs^Main.M2.bSTO" VarB="Channel 1^Input"/>
+				<Link VarA="PlcTask Inputs^Main.M3.bSTO" VarB="Channel 1^Input"/>
+				<Link VarA="PlcTask Inputs^Main.M4.bSTO" VarB="Channel 1^Input"/>
+				<Link VarA="PlcTask Inputs^Main.M5.bSTO" VarB="Channel 1^Input"/>
+				<Link VarA="PlcTask Inputs^Main.sto" VarB="Channel 1^Input"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1100)^Term 2 (EL7041-1000) - Xup">
+				<Link VarA="PlcTask Inputs^Main.M3.bLimBwd" VarB="STM Status^Status^Digital input 2"/>
+				<Link VarA="PlcTask Inputs^Main.M3.bLimFwd" VarB="STM Status^Status^Digital input 1"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1100)^Term 3 (EL7041-1000) - Xdwn">
+				<Link VarA="PlcTask Inputs^Main.M4.bLimBwd" VarB="STM Status^Status^Digital input 2"/>
+				<Link VarA="PlcTask Inputs^Main.M4.bLimFwd" VarB="STM Status^Status^Digital input 1"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1100)^Term 4 (EL7041-1000) - Yup">
+				<Link VarA="PlcTask Inputs^Main.M1.bLimBwd" VarB="STM Status^Status^Digital input 2"/>
+				<Link VarA="PlcTask Inputs^Main.M1.bLimFwd" VarB="STM Status^Status^Digital input 1"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1100)^Term 5 (EL7041-1000) - Ydwn">
+				<Link VarA="PlcTask Inputs^Main.M2.bLimBwd" VarB="STM Status^Status^Digital input 2"/>
+				<Link VarA="PlcTask Inputs^Main.M2.bLimFwd" VarB="STM Status^Status^Digital input 1"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1100)^Term 6 (EL7041-1000) - PitchCourse">
+				<Link VarA="PlcTask Inputs^Main.M5.bLimBwd" VarB="STM Status^Status^Digital input 2"/>
+				<Link VarA="PlcTask Inputs^Main.M5.bLimFwd" VarB="STM Status^Status^Digital input 1"/>
+			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis_PitchCourse">
 				<Link VarA="PlcTask Inputs^Main.M5.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="PlcTask Outputs^Main.M5.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
