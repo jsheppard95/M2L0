@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.14">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="MAIN" Id="{d73f6033-1c1a-47a8-be0f-3a700ab10cd1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Main
 VAR
@@ -10,18 +10,24 @@ VAR
 	y_couple_start: BOOL := TRUE;
 
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[y_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[y_up]^STM Status^Status^Digital input 2; .bSTO:=TIIB[di]^Channel 1^Input'}	
-	{attribute 'TcLinkTo':='.bLimFwd:=TIIB[y_up]^STM Status^Status^Digital input 1'}		
+	{attribute 'TcLinkTo':='.bLimFwd:=TIIB[y_up]^STM Status^Status^Digital input 1'}
+	// Yup
     M1: DUT_MotionStage; // Set nEnableMode := 0 to enable each axis
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[y_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[y_dwn]^STM Status^Status^Digital input 2'}
+	// Ydwn
 	M2: DUT_MotionStage;		
-//	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_up]^STM Status^Status^Digital input 2'}	
+//	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_up]^STM Status^Status^Digital input 2'}
+	// Xup
 	M3: DUT_MotionStage;
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_dwn]^STM Status^Status^Digital input 2'}
+	// Xdwn
 	M4: DUT_MotionStage;
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[pitch]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[pitch]^STM Status^Status^Digital input 2'}	
+	// PitchCourse
 	M5: DUT_MotionStage;
-
-	fbMotionStage_x_up, fbMotionStage_x_dwn, fbMotionStage_y_up, fbMotionStage_y_dwn, fbMotionStage_pitch : FB_MotionStage;
+	// Bender
+	M6: DUT_MotionStage;
+	fbMotionStage_x_up, fbMotionStage_x_dwn, fbMotionStage_y_up, fbMotionStage_y_dwn, fbMotionStage_pitch, fbMotionStage_bender : FB_MotionStage;
 
 	enable: BOOL := TRUE;
 	sto AT %I*: BOOL;
@@ -37,6 +43,13 @@ VAR
 	{attribute 'TcLinkTo' := '.Count:=TIIB[1-y_up_2-y_dwn]^FB Inputs Channel 2^Position'}
 	y_dwn_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=0);
 
+	// Pitch Course encoder
+	{attribute 'TcLinkTo' := '.Count:=TIIB[1-pitch_2-bender]^FB Inputs Channel 2^Position'}
+	pitch_enc AT %I*: ST_RenishawAbsEnc;
+	// Bender encoder
+	{attribute 'TcLinkTo' := '.Count:=TIIB[1-pitch_2-bender]^FB Inputs Channel 2^Position'}
+	bender_enc AT %I*: ST_RenishawAbsEnc;
+	
 	x_limit_gantry, y_limit_gantry: FB_GantryDiffVirtualLimitSwitch;
 
 	// Decouple Axes when gantry too large
@@ -69,6 +82,12 @@ M3.nCommand := 3;
 M4.bGantryAxis := TRUE;
 M4.fGantryTol := M3.fGantryTol;
 
+x_up_enc.Count;
+x_dwn_enc.Count;
+y_up_enc.Count;
+y_dwn_enc.Count;
+bender_enc.Count;
+
 (*
 // Pretend Encoder counts
 y_up_enc.Count := LREAL_TO_ULINT(M1.stAxisStatus.fActPosition * EXPT(10, 6));
@@ -84,6 +103,7 @@ M2.bSTO := sto;
 M3.bSTO := sto;
 M4.bSTO := sto;
 M5.bSTO := sto;
+M6.bSTO := sto;
 
 // Activate Gantry Virtual Limit Switch
 y_limit_gantry(PEnc:=y_up_enc, SEnc:=y_dwn_enc, GantDiffTol:=LREAL_TO_LINT(M1.fGantryTol),
@@ -124,6 +144,7 @@ fbMotionStage_y_dwn (stMotionStage:=M2);
 fbMotionStage_x_up  (stMotionStage:=M3);
 fbMotionStage_x_dwn (stMotionStage:=M4);
 fbMotionStage_pitch (stMotionStage:=M5);
+fbMotionStage_bender(stMotionStage:=M6);
 
 // Gantry Differences to observe
 dx := M3.Axis.NcToPlc.ActPos - M4.Axis.NcToPlc.ActPos;
@@ -161,6 +182,10 @@ decoupleX( Slave:=M2.Axis, Execute:=bExecuteDecoupleY );]]></ST>
       <LineId Id="263" Count="1" />
       <LineId Id="592" Count="4" />
       <LineId Id="180" Count="0" />
+      <LineId Id="1022" Count="0" />
+      <LineId Id="1016" Count="0" />
+      <LineId Id="1023" Count="2" />
+      <LineId Id="1015" Count="0" />
       <LineId Id="949" Count="0" />
       <LineId Id="266" Count="0" />
       <LineId Id="181" Count="0" />
@@ -174,6 +199,7 @@ decoupleX( Slave:=M2.Axis, Execute:=bExecuteDecoupleY );]]></ST>
       <LineId Id="49" Count="2" />
       <LineId Id="856" Count="0" />
       <LineId Id="52" Count="0" />
+      <LineId Id="1011" Count="0" />
       <LineId Id="857" Count="0" />
       <LineId Id="53" Count="4" />
       <LineId Id="672" Count="0" />
@@ -192,7 +218,9 @@ decoupleX( Slave:=M2.Axis, Execute:=bExecuteDecoupleY );]]></ST>
       <LineId Id="870" Count="7" />
       <LineId Id="688" Count="0" />
       <LineId Id="861" Count="0" />
-      <LineId Id="63" Count="9" />
+      <LineId Id="63" Count="5" />
+      <LineId Id="1012" Count="0" />
+      <LineId Id="69" Count="3" />
       <LineId Id="696" Count="0" />
       <LineId Id="682" Count="0" />
       <LineId Id="697" Count="0" />
