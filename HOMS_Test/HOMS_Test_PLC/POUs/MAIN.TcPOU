@@ -67,25 +67,29 @@ VAR
 	yInitComplete: BOOL := FALSE;
 	xGantryAlreadyCoupled : BOOL;
 	yGantryAlreadyCoupled : BOOL;
+	dx_raw : ULINT;
+	dy_raw : ULINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[// Startup Parameters while Testing/Debugging:
 M1.bGantryAxis := TRUE;
-M1.fGantryTol := 4000;
+M1.fGantryTol := 50000; // Dynamic Y gantry tolerance in nm
 M1.nCommand := 3;
 M2.bGantryAxis := TRUE;
 M2.fGantryTol := M1.fGantryTol;
 M3.bGantryAxis := TRUE;
-M3.fGantryTol := 4000;
+M3.fGantryTol := 50000; // Dynamic X gantry tolerance in nm
 M3.nCommand := 3;
 M4.bGantryAxis := TRUE;
 M4.fGantryTol := M3.fGantryTol;
 
 x_up_enc.Count;
 x_dwn_enc.Count;
+dx_raw := ABS(x_dwn_enc.Count - x_up_enc.Count);
 y_up_enc.Count;
 y_dwn_enc.Count;
+dy_raw := ABS(y_dwn_enc.Count - y_up_enc.Count);
 bender_enc.Count;
 
 (*
@@ -184,7 +188,10 @@ decoupleX( Slave:=M2.Axis, Execute:=bExecuteDecoupleY );]]></ST>
       <LineId Id="180" Count="0" />
       <LineId Id="1022" Count="0" />
       <LineId Id="1016" Count="0" />
-      <LineId Id="1023" Count="2" />
+      <LineId Id="1023" Count="0" />
+      <LineId Id="1093" Count="0" />
+      <LineId Id="1024" Count="1" />
+      <LineId Id="1095" Count="0" />
       <LineId Id="1015" Count="0" />
       <LineId Id="949" Count="0" />
       <LineId Id="266" Count="0" />
