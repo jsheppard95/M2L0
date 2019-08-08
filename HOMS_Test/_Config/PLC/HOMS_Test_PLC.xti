@@ -701,15 +701,15 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{5265B93D-281B-43DF-81F9-9015A85F6BA2}" Namespace="lcls_twincat_motion_sheppard" AutoDeleteType="true">EL5042_Status</Name>
+			<Name GUID="{94417E67-9312-47A7-A0D8-96352DBF2DB1}" Namespace="lcls_twincat_motion_sheppard" AutoDeleteType="true">EL5042_Status</Name>
 			<BitSize>0</BitSize>
 			<BaseType GUID="{FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF}"/>
 			<Hides>
-				<Hide GUID="{37B8B297-B4D1-44F2-910F-0E8D75285695}"/>
+				<Hide GUID="{5265B93D-281B-43DF-81F9-9015A85F6BA2}"/>
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{017D7B27-465D-4EE0-8285-35CC2943C500}" Namespace="lcls_twincat_motion_sheppard" AutoDeleteType="true">ST_RenishawAbsEnc</Name>
+			<Name GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard" AutoDeleteType="true">ST_RenishawAbsEnc</Name>
 			<Comment>
 				<![CDATA[ Renishaw BiSS-C absolute encoder used with an EL5042 ]]>
 			</Comment>
@@ -731,7 +731,7 @@ External Setpoint Generation:
 			</SubItem>
 			<SubItem>
 				<Name>Status</Name>
-				<Type GUID="{5265B93D-281B-43DF-81F9-9015A85F6BA2}" Namespace="lcls_twincat_motion_sheppard">EL5042_Status</Type>
+				<Type GUID="{94417E67-9312-47A7-A0D8-96352DBF2DB1}" Namespace="lcls_twincat_motion_sheppard">EL5042_Status</Type>
 				<Comment>
 					<![CDATA[ Status struct placeholder]]>
 				</Comment>
@@ -748,7 +748,7 @@ External Setpoint Generation:
 				<BitOffs>64</BitOffs>
 			</SubItem>
 			<Hides>
-				<Hide GUID="{D8FC4A77-EAC7-49B0-A71F-5EB849FB5824}"/>
+				<Hide GUID="{017D7B27-465D-4EE0-8285-35CC2943C500}"/>
 			</Hides>
 		</DataType>
 		<DataType>
@@ -1626,7 +1626,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.x_up_enc</Name>
-					<Type GUID="{017D7B27-465D-4EE0-8285-35CC2943C500}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1648,7 +1648,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.x_dwn_enc</Name>
-					<Type GUID="{017D7B27-465D-4EE0-8285-35CC2943C500}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1670,7 +1670,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.y_up_enc</Name>
-					<Type GUID="{017D7B27-465D-4EE0-8285-35CC2943C500}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1692,7 +1692,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.y_dwn_enc</Name>
-					<Type GUID="{017D7B27-465D-4EE0-8285-35CC2943C500}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1717,7 +1717,7 @@ External Setpoint Generation:
 					<Comment>
 						<![CDATA[ Pitch Course encoder]]>
 					</Comment>
-					<Type GUID="{017D7B27-465D-4EE0-8285-35CC2943C500}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1742,7 +1742,7 @@ External Setpoint Generation:
 					<Comment>
 						<![CDATA[ Bender encoder]]>
 					</Comment>
-					<Type GUID="{017D7B27-465D-4EE0-8285-35CC2943C500}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
