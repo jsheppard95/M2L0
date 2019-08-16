@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmItem" TcSmVersion="1.0" TcVersion="3.1.4022.28" ClassName="CNestedPlcProjDef">
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmItem" TcSmVersion="1.0" TcVersion="3.1.4020.32" ClassName="CNestedPlcProjDef">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{4C3FC5AC-D5AA-44C6-AC5A-159774BA0F6D}" Namespace="MC" TcBaseType="true" HideType="true" IecDeclaration="DWORD;">NCTOPLC_AXIS_REF_STATE</Name>
@@ -701,15 +701,15 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{94417E67-9312-47A7-A0D8-96352DBF2DB1}" Namespace="lcls_twincat_motion_sheppard" AutoDeleteType="true">EL5042_Status</Name>
+			<Name GUID="{012503F6-ABAF-436A-8783-4B00B894EB63}" Namespace="LCLS_TWINCAT_MOTION_SHEPPARD" AutoDeleteType="true">EL5042_Status</Name>
 			<BitSize>0</BitSize>
 			<BaseType GUID="{FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF}"/>
 			<Hides>
-				<Hide GUID="{5265B93D-281B-43DF-81F9-9015A85F6BA2}"/>
+				<Hide GUID="{AFF7E364-8C22-469D-AD6B-B59442AC059B}"/>
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard" AutoDeleteType="true">ST_RenishawAbsEnc</Name>
+			<Name GUID="{CFA15E0A-9F82-42D6-A73F-9642D27CC96A}" Namespace="LCLS_TWINCAT_MOTION_SHEPPARD" AutoDeleteType="true">ST_RenishawAbsEnc</Name>
 			<Comment>
 				<![CDATA[ Renishaw BiSS-C absolute encoder used with an EL5042 ]]>
 			</Comment>
@@ -722,16 +722,10 @@ External Setpoint Generation:
 				</Comment>
 				<BitSize>64</BitSize>
 				<BitOffs>0</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Input</Value>
-					</Property>
-				</Properties>
 			</SubItem>
 			<SubItem>
 				<Name>Status</Name>
-				<Type GUID="{94417E67-9312-47A7-A0D8-96352DBF2DB1}" Namespace="lcls_twincat_motion_sheppard">EL5042_Status</Type>
+				<Type GUID="{012503F6-ABAF-436A-8783-4B00B894EB63}" Namespace="LCLS_TWINCAT_MOTION_SHEPPARD">EL5042_Status</Type>
 				<Comment>
 					<![CDATA[ Status struct placeholder]]>
 				</Comment>
@@ -748,8 +742,36 @@ External Setpoint Generation:
 				<BitOffs>64</BitOffs>
 			</SubItem>
 			<Hides>
-				<Hide GUID="{017D7B27-465D-4EE0-8285-35CC2943C500}"/>
+				<Hide GUID="{20013B4B-F00C-44B0-9D57-2C50A826D66A}"/>
 			</Hides>
+		</DataType>
+		<DataType>
+			<Name GUID="{CC8CBA1A-6754-4240-AF23-36104F7B2004}" Namespace="TC2_SERIALCOM" AutoDeleteType="true">EL6inData22B</Name>
+			<Comment>
+				<![CDATA[ This data type is corresponding to the
+   KL-6xxx data structure used in the
+   TwinCAT SystemManager
+   (KL-6xxx version using 5 data bytes / 
+    non-alternative (standard) output ) 
+]]>
+			</Comment>
+			<BitSize>192</BitSize>
+			<SubItem>
+				<Name>Status</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>D</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>0</LBound>
+					<Elements>22</Elements>
+				</ArrayInfo>
+				<BitSize>176</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
 		</DataType>
 		<DataType>
 			<Name GUID="{875D2B22-B7EB-497E-B933-0C004593CCF3}" Namespace="MC" TcBaseType="true" HideType="true" IecDeclaration="DWORD;">PLCTONC_AXIS_REF_CTRL</Name>
@@ -929,17 +951,41 @@ External Setpoint Generation:
 				</Relation>
 			</Relations>
 		</DataType>
+		<DataType>
+			<Name GUID="{693B32AC-67D1-478C-B8F3-D55FFA400CAE}" Namespace="TC2_SERIALCOM" AutoDeleteType="true">EL6outData22B</Name>
+			<Comment>
+				<![CDATA[ This data type is corresponding to the
+   KL-6xxx data structure used in the
+   TwinCAT SystemManager
+   (KL-6xxx version using 5 data bytes / 
+    non-alternative (standard) output ) 
+]]>
+			</Comment>
+			<BitSize>192</BitSize>
+			<SubItem>
+				<Name>Ctrl</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>D</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>0</LBound>
+					<Elements>22</Elements>
+				</ArrayInfo>
+				<BitSize>176</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+		</DataType>
 	</DataTypes>
 	<Project GUID="{077C7AFF-276F-439F-9592-0A8A12D81F6D}" Name="HOMS_Test_PLC" PrjFilePath="..\..\HOMS_Test_PLC\HOMS_Test_PLC.plcproj" TmcFilePath="..\..\HOMS_Test_PLC\HOMS_Test_PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="HOMS_Test_PLC\HOMS_Test_PLC.tmc">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
 			<Name>HOMS_Test_PLC Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
 				<Name>PlcTask Inputs</Name>
-				<Var>
-					<Name>Main.sto</Name>
-					<Type>BOOL</Type>
-				</Var>
 				<Var>
 					<Name>Main.M1.Axis.NcToPlc</Name>
 					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
@@ -1625,8 +1671,15 @@ External Setpoint Generation:
 					</SubVar>
 				</Var>
 				<Var>
+					<Name>Main.sto</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>Main.x_up_enc</Name>
-					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Comment>
+						<![CDATA[	x_up_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=23994080);]]>
+					</Comment>
+					<Type GUID="{CFA15E0A-9F82-42D6-A73F-9642D27CC96A}" Namespace="LCLS_TWINCAT_MOTION_SHEPPARD">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1648,7 +1701,10 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.x_dwn_enc</Name>
-					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Comment>
+						<![CDATA[	x_dwn_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=24785910);]]>
+					</Comment>
+					<Type GUID="{CFA15E0A-9F82-42D6-A73F-9642D27CC96A}" Namespace="LCLS_TWINCAT_MOTION_SHEPPARD">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1670,7 +1726,11 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.y_up_enc</Name>
-					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Comment>
+						<![CDATA[	y_up_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=16393510);
+	y_up_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=16394310);]]>
+					</Comment>
+					<Type GUID="{CFA15E0A-9F82-42D6-A73F-9642D27CC96A}" Namespace="LCLS_TWINCAT_MOTION_SHEPPARD">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1692,7 +1752,11 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.y_dwn_enc</Name>
-					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Comment>
+						<![CDATA[	y_dwn_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=20175460);
+	y_dwn_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=19499800);]]>
+					</Comment>
+					<Type GUID="{CFA15E0A-9F82-42D6-A73F-9642D27CC96A}" Namespace="LCLS_TWINCAT_MOTION_SHEPPARD">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1717,7 +1781,7 @@ External Setpoint Generation:
 					<Comment>
 						<![CDATA[ Pitch Course encoder]]>
 					</Comment>
-					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{CFA15E0A-9F82-42D6-A73F-9642D27CC96A}" Namespace="LCLS_TWINCAT_MOTION_SHEPPARD">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1742,7 +1806,7 @@ External Setpoint Generation:
 					<Comment>
 						<![CDATA[ Bender encoder]]>
 					</Comment>
-					<Type GUID="{5C0CA177-6AD4-4C6B-97C9-2F238EF9AB7A}" Namespace="lcls_twincat_motion_sheppard">ST_RenishawAbsEnc</Type>
+					<Type GUID="{CFA15E0A-9F82-42D6-A73F-9642D27CC96A}" Namespace="LCLS_TWINCAT_MOTION_SHEPPARD">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1789,6 +1853,13 @@ External Setpoint Generation:
 						<![CDATA[ Connect to encoder "Position" input]]>
 					</Comment>
 					<Type>ULINT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_SerialIO.Serial_P1_stComIn</Name>
+					<Comment>
+						<![CDATA[Better have your inputs and outputs!]]>
+					</Comment>
+					<Type GUID="{CC8CBA1A-6754-4240-AF23-36104F7B2004}" Namespace="TC2_SERIALCOM">EL6inData22B</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="2">
@@ -1864,6 +1935,10 @@ External Setpoint Generation:
 				<Var>
 					<Name>Main.fbMotionStage_bender.fbDriveVirtual.MasterAxis.PlcToNc</Name>
 					<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>GVL_SerialIO.Serial_P1_stComOut</Name>
+					<Type GUID="{693B32AC-67D1-478C-B8F3-D55FFA400CAE}" Namespace="TC2_SERIALCOM">EL6outData22B</Type>
 				</Var>
 			</Vars>
 			<TaskPouOids>
