@@ -1,281 +1,105 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.14">
   <POU Name="MAIN" Id="{d73f6033-1c1a-47a8-be0f-3a700ab10cd1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Main
 VAR
-	//x_up, x_dwn, y_up, y_dwn, pitch: AXIS_REF;
-	x_couple, y_couple: MC_GEARIN;
-	x_couple_start: BOOL := TRUE;
-	y_couple_start: BOOL := TRUE;
-
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[y_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[y_up]^STM Status^Status^Digital input 2; .bSTO:=TIIB[di]^Channel 1^Input'}	
-	{attribute 'TcLinkTo':='.bLimFwd:=TIIB[y_up]^STM Status^Status^Digital input 1'}
-	// Yup
-    M1: DUT_MotionStage:=(fGantryTol:=50000); // Set nEnableMode := 0 to enable each axis
+	{attribute 'TcLinkTo':='.bLimFwd:=TIIB[y_up]^STM Status^Status^Digital input 1'}		
+    M1: DUT_MotionStage:=(nCommand:=3); // Yup
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[y_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[y_dwn]^STM Status^Status^Digital input 2'}
-	// Ydwn
-	M2: DUT_MotionStage:=(fGantryTol:=50000);
-//	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_up]^STM Status^Status^Digital input 2'}
-	// Xup
-	M3: DUT_MotionStage:=(fGantryTol:=50000);
+	M2: DUT_MotionStage:=(nCommand:=3); // Ydwn
+//	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_up]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_up]^STM Status^Status^Digital input 2'}	
+	M3: DUT_MotionStage:=(nCommand:=3); // Xup
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[x_dwn]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[x_dwn]^STM Status^Status^Digital input 2'}
-	// Xdwn
-	M4: DUT_MotionStage:=(fGantryTol:=50000);
+	M4: DUT_MotionStage:=(nCommand:=3); // Xdwn
 //	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[pitch]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[pitch]^STM Status^Status^Digital input 2'}	
-	// PitchCourse
-	M5: DUT_MotionStage;
-	// Bender
-	M6: DUT_MotionStage;
+	M5: DUT_MotionStage:=(nCommand:=3); // PitchCoarse
+//	{attribute 'TcLinkTo' := '.bLimFwd:=TIIB[pitch]^STM Status^Status^Digital input 1; .bLimBwd:=TIIB[pitch]^STM Status^Status^Digital input 2'}	
+	M6: DUT_MotionStage:=(nCommand:=3); // Bender
+
 	fbMotionStage_x_up, fbMotionStage_x_dwn, fbMotionStage_y_up, fbMotionStage_y_dwn, fbMotionStage_pitch, fbMotionStage_bender : FB_MotionStage;
 
-	enable: BOOL := TRUE;
-	sto AT %I*: BOOL;
-
-	dx, dy: LREAL;
-
+	stoEnable AT %I* : BOOL;
 	{attribute 'TcLinkTo' := '.Count:=TIIB[1-x_up_2-x_dwn]^FB Inputs Channel 1^Position'}	
-//	x_up_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=23994080);
 	x_up_enc  AT %I*: ST_RenishawAbsEnc;
 	{attribute 'TcLinkTo' := '.Count:=TIIB[1-x_up_2-x_dwn]^FB Inputs Channel 2^Position'}
-//	x_dwn_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=24785910);
 	x_dwn_enc  AT %I*: ST_RenishawAbsEnc;
 	{attribute 'TcLinkTo' := '.Count:=TIIB[1-y_up_2-y_dwn]^FB Inputs Channel 1^Position'}	
-//	y_up_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=16393510);
-//	y_up_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=16394310);
 	y_up_enc  AT %I*: ST_RenishawAbsEnc;
-
 	{attribute 'TcLinkTo' := '.Count:=TIIB[1-y_up_2-y_dwn]^FB Inputs Channel 2^Position'}
-//	y_dwn_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=20175460);
-//	y_dwn_enc  AT %I*: ST_RenishawAbsEnc:=(Ref:=19499800);
 	y_dwn_enc  AT %I*: ST_RenishawAbsEnc;
 
-	// Pitch Course encoder
-	{attribute 'TcLinkTo' := '.Count:=TIIB[1-pitch_2-bender]^FB Inputs Channel 2^Position'}
-	pitch_enc AT %I*: ST_RenishawAbsEnc;
-	// Bender encoder
-	{attribute 'TcLinkTo' := '.Count:=TIIB[1-pitch_2-bender]^FB Inputs Channel 2^Position'}
-	bender_enc AT %I*: ST_RenishawAbsEnc;
-
-	x_limit_gantry, y_limit_gantry: FB_GantryDiffVirtualLimitSwitch;
-
-	// Decouple Axes when gantry too large
-	decoupleY : MC_GEAROUT;
-	decoupleX : MC_GEAROUT;
-	stop_axis : MC_HALT;
-	bExecuteDecoupleY : BOOL;
+	// Auto coupling function block
+	fbAutoCoupleX : FB_GantryAutoCoupling;
+	fbAutoCoupleY : FB_GantryAutoCoupling;
+	bExecuteCoupleX : BOOL;
+	bExecuteCoupleY : BOOL;
 	bExecuteDecoupleX : BOOL;
-
-	// Encoder fudge factor to simulate gantry difference
-	fEncFudgeFactor : REAL := 1.0;
-
-	// Set true once all axes initialize and couple as needed.
-	xInitComplete: BOOL := FALSE;
-	yInitComplete: BOOL := FALSE;
-	xGantryAlreadyCoupled : BOOL;
-	yGantryAlreadyCoupled : BOOL;
-	dx_raw : LINT;
-	dy_raw : LINT;
-	GantryDiffX : LINT;
-	GantryDiffY : LINT;
-	nCycle : LINT := 0;
+	bExecuteDecoupleY : BOOL;
+	bGantryAlreadyCoupledX : BOOL;
+	bGantryAlreadyCoupledY : BOOL;
+	
+	// Gantry variables
+	nCurrGantryX : LINT;
+	nCurrGantryY : LINT;
+	nGantryTolX : LINT := 25000;
+	nGantryTolY : LINT := 25000;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF nCycle = 0 THEN
-	y_up_enc.Ref := 16394310;
-	y_dwn_enc.Ref := 19499800;
-	x_up_enc.Ref := 23994080;
-	x_dwn_enc.Ref := 24785910;
-END_IF
-// Startup Parameters while Testing/Debugging:
-M1.bGantryAxis := TRUE;
-//M1.fGantryTol := 50000; // Dynamic Y gantry tolerance in nm
-M1.nCommand := 3;
-M2.bGantryAxis := TRUE;
-//M2.fGantryTol := M1.fGantryTol;
-M3.bGantryAxis := TRUE;
-//M3.fGantryTol := 50000; // Dynamic X gantry tolerance in nm
-M3.nCommand := 3;
-M4.bGantryAxis := TRUE;
-//M4.fGantryTol := M3.fGantryTol;
-M1.nEnableMode;
-M2.nEnableMode;
-M3.nEnableMode;
-M4.nEnableMode;
-M5.nEnableMode;
+      <ST><![CDATA[// M2L0
+// Buttons to enable motors: write 0 to enable, 2 to disable
+M1.nEnableMode; // Yup
+M2.nEnableMode; // Ydwn
+M3.nEnableMode; // Xup
+M4.nEnableMode; // Xdwn
+M5.nEnableMode; // PitchCoarse
 
-dx_raw := ABS(x_dwn_enc.Count - x_up_enc.Count);
-dy_raw := ABS(y_dwn_enc.Count - y_up_enc.Count);
+// Encoder Reference Values: Starting motor positions prior to checkout
+y_up_enc.Ref := 16394310;
+y_dwn_enc.Ref := 19499800;
+x_up_enc.Ref := 23994080;
+x_dwn_enc.Ref := 24785910;
 
-(*
-// Pretend Encoder counts
-y_up_enc.Count := LREAL_TO_ULINT(M1.stAxisStatus.fActPosition * EXPT(10, 6));
-y_dwn_enc.Count := LREAL_TO_ULINT(M2.stAxisStatus.fActPosition * fEncFudgeFactor * EXPT(10, 6));
+// Gantry Differences to monitor
+nCurrGantryY := ((ULINT_TO_LINT(y_up_enc.Count) - ULINT_TO_LINT(y_up_enc.Ref)) - (ULINT_TO_LINT(y_dwn_enc.Count) - ULINT_TO_LINT(y_dwn_enc.Ref)));
+nCurrGantryX := ((ULINT_TO_LINT(x_up_enc.Count) - ULINT_TO_LINT(x_up_enc.Ref)) - (ULINT_TO_LINT(x_dwn_enc.Count) - ULINT_TO_LINT(x_dwn_enc.Ref)));
 
-x_up_enc.Count := LREAL_TO_ULINT(M3.stAxisStatus.fActPosition * fEncFudgeFactor * EXPT(10, 6));
-x_dwn_enc.Count := LREAL_TO_ULINT(M4.stAxisStatus.fActPosition * EXPT(10, 6));
-*)
+// E-stop
+M1.bHardwareEnable := stoEnable;
+M2.bHardwareEnable := stoEnable;
+M3.bHardwareEnable := stoEnable;
+M4.bHardwareEnable := stoEnable;
+M5.bHardwareEnable := stoEnable;
+M6.bHardwareEnable := stoEnable;
 
-// Add Stop button to each axis
-M1.bSTO := sto;
-M2.bSTO := sto;
-M3.bSTO := sto;
-M4.bSTO := sto;
-M5.bSTO := sto;
-M6.bSTO := sto;
+// Start Autocoupling
+fbAutoCoupleX(nGantryTol:=nGantryTolX, Master:=M3, MasterEnc:=x_up_enc, Slave:=M4,
+	          SlaveEnc:=x_dwn_enc, bExecuteCouple:=bExecuteCoupleX,
+              bExecuteDecouple:=bExecuteDecoupleX,
+              bGantryAlreadyCoupled=>bGantryAlreadyCoupledX);
 
+fbAutoCoupleY(nGantryTol:=nGantryTolY, Master:=M1, MasterEnc:=y_up_enc, Slave:=M2,
+	          SlaveEnc:=y_dwn_enc, bExecuteCouple:=bExecuteCoupleY,
+              bExecuteDecouple:=bExecuteDecoupleY,
+			  bGantryAlreadyCoupled=>bGantryAlreadyCoupledY);
 
-// Activate Gantry Virtual Limit Switch
-y_limit_gantry(PEnc:=y_up_enc, SEnc:=y_dwn_enc, GantDiffTol:=LREAL_TO_LINT(M1.fGantryTol),
-				PLimFwd=>M1.bLimGntFwd, PLimBwd=>M1.bLimGntBwd,
-				SLimFwd=>M2.bLimGntFwd, SLimBwd=>M2.bLimGntBwd
-);
-
-
-x_limit_gantry(PEnc:=x_up_enc, SEnc:=x_dwn_enc, GantDiffTol:=LREAL_TO_LINT(M3.fGantryTol),
-				PLimFwd=>M3.bLimGntFwd, PLimBwd=>M3.bLimGntBwd,
-				SLimFwd=>M4.bLimGntFwd, SLimBwd=>M4.bLimGntBwd
-);
-
-// Coupling Status Bit
-xGantryAlreadyCoupled := M3.Axis.NcToPlc.CoupleState=1 AND M4.Axis.NcToPlc.CoupleState = 3;
-yGantryAlreadyCoupled := M1.Axis.NcToPlc.CoupleState=1 AND M2.Axis.NcToPlc.CoupleState = 3;
-
-// Make master and slave respect each other's limits
-IF xGantryAlreadyCoupled THEN
-	M3.bLimGntFwd := M3.bLimGntFwd AND M4.bLimGntFwd AND M4.bLimFwd;
-	M4.bLimGntFwd := M3.bLimGntFwd AND M4.bLimGntFwd AND M3.bLimFwd;
-
-	M3.bLimGntBwd := M3.bLimGntBwd AND M4.bLimGntBwd AND M4.bLimBwd;
-	M4.bLimGntBwd := M3.bLimGntBwd AND M4.bLimGntBwd AND M3.bLimBwd;
-END_IF
-
-IF yGantryAlreadyCoupled THEN
-	M1.bLimGntFwd := M1.bLimGntFwd AND M2.bLimGntFwd AND M2.bLimFwd;
-	M2.bLimGntFwd := M1.bLimGntFwd AND M2.bLimGntFwd AND M1.bLimFwd;
-
-	M1.bLimGntBwd := M1.bLimGntBwd AND M2.bLimGntBwd AND M2.bLimBwd;
-	M2.bLimGntBwd := M1.bLimGntBwd AND M2.bLimGntBwd AND M1.bLimBwd;
-END_IF
-
-// Activate motion function blocks
 fbMotionStage_y_up  (stMotionStage:=M1);
 fbMotionStage_y_dwn (stMotionStage:=M2);
 fbMotionStage_x_up  (stMotionStage:=M3);
 fbMotionStage_x_dwn (stMotionStage:=M4);
 fbMotionStage_pitch (stMotionStage:=M5);
-fbMotionStage_bender(stMotionStage:=M6);
-
-// Gantry Differences to observe
-dx := M3.Axis.NcToPlc.ActPos - M4.Axis.NcToPlc.ActPos;
-dy := M1.Axis.NcToPlc.ActPos - M2.Axis.NcToPlc.ActPos;
-
-GantryDiffX := (x_up_enc.Count - x_up_enc.Ref)  -  (x_dwn_enc.Count - x_dwn_enc.Ref);
-GantryDiffY := (y_up_enc.Count - y_up_enc.Ref)  -  (y_dwn_enc.Count - y_dwn_enc.Ref);
-
-// X Motion coupling states
-// Auto-coupling at init and auto-reset of coupling boolean	
-x_couple_start S= NOT xInitComplete;
-	
-x_couple_start R= x_couple.Busy OR xGantryAlreadyCoupled;
-x_couple ( Master:=M3.Axis, Slave:=M4.Axis, Execute:=x_couple_start);
-
-xInitComplete S= xGantryAlreadyCoupled;
-
-// Decoupling with auto-reset of decouple boolean
-bExecuteDecoupleX R= decoupleX.Busy OR NOT xGantryAlreadyCoupled;
-decoupleX( Slave:=M4.Axis, Execute:=bExecuteDecoupleX );
-
-// Y Motion coupling states
-// Auto-coupling at init and auto-reset of coupling boolean	
-y_couple_start S= NOT yInitComplete;
-
-y_couple_start R= y_couple.Busy OR yGantryAlreadyCoupled;
-y_couple ( Master:=M1.Axis, Slave:=M2.Axis, Execute:=y_couple_start);	
-
-yInitComplete S= yGantryAlreadyCoupled;
-
-// Decoupling with auto-reset of decouple boolean
-bExecuteDecoupleY R= decoupleY.Busy OR NOT yGantryAlreadyCoupled;
-decoupleY( Slave:=M2.Axis, Execute:=bExecuteDecoupleY );
-nCycle := nCycle + 1;]]></ST>
+fbMotionStage_bender (stMotionStage:=M6);]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
+      <LineId Id="1454" Count="7" />
       <LineId Id="1327" Count="0" />
       <LineId Id="1329" Count="0" />
       <LineId Id="1332" Count="1" />
-      <LineId Id="1328" Count="0" />
+      <LineId Id="1462" Count="0" />
       <LineId Id="1324" Count="0" />
-      <LineId Id="256" Count="0" />
-      <LineId Id="259" Count="1" />
-      <LineId Id="263" Count="1" />
-      <LineId Id="592" Count="4" />
-      <LineId Id="1096" Count="4" />
-      <LineId Id="180" Count="0" />
-      <LineId Id="1023" Count="0" />
-      <LineId Id="1025" Count="0" />
-      <LineId Id="1015" Count="0" />
-      <LineId Id="949" Count="0" />
-      <LineId Id="266" Count="0" />
-      <LineId Id="181" Count="0" />
-      <LineId Id="126" Count="0" />
-      <LineId Id="125" Count="0" />
-      <LineId Id="599" Count="1" />
-      <LineId Id="597" Count="0" />
-      <LineId Id="950" Count="0" />
-      <LineId Id="855" Count="0" />
-      <LineId Id="265" Count="0" />
-      <LineId Id="49" Count="2" />
-      <LineId Id="856" Count="0" />
-      <LineId Id="52" Count="0" />
-      <LineId Id="1011" Count="0" />
-      <LineId Id="1172" Count="0" />
-      <LineId Id="857" Count="0" />
-      <LineId Id="53" Count="4" />
-      <LineId Id="672" Count="0" />
-      <LineId Id="58" Count="3" />
-      <LineId Id="849" Count="0" />
-      <LineId Id="858" Count="0" />
-      <LineId Id="62" Count="0" />
-      <LineId Id="690" Count="0" />
-      <LineId Id="869" Count="0" />
-      <LineId Id="860" Count="0" />
-      <LineId Id="859" Count="0" />
-      <LineId Id="854" Count="0" />
-      <LineId Id="691" Count="1" />
-      <LineId Id="695" Count="0" />
-      <LineId Id="693" Count="1" />
-      <LineId Id="870" Count="7" />
-      <LineId Id="688" Count="0" />
-      <LineId Id="861" Count="0" />
-      <LineId Id="63" Count="5" />
-      <LineId Id="1012" Count="0" />
-      <LineId Id="69" Count="2" />
-      <LineId Id="1244" Count="2" />
-      <LineId Id="72" Count="0" />
-      <LineId Id="696" Count="0" />
-      <LineId Id="682" Count="0" />
-      <LineId Id="697" Count="0" />
-      <LineId Id="678" Count="0" />
-      <LineId Id="677" Count="0" />
-      <LineId Id="777" Count="0" />
-      <LineId Id="73" Count="0" />
-      <LineId Id="681" Count="0" />
-      <LineId Id="680" Count="0" />
-      <LineId Id="704" Count="0" />
-      <LineId Id="776" Count="0" />
-      <LineId Id="698" Count="2" />
-      <LineId Id="862" Count="0" />
-      <LineId Id="864" Count="0" />
-      <LineId Id="863" Count="0" />
-      <LineId Id="867" Count="0" />
-      <LineId Id="679" Count="0" />
-      <LineId Id="78" Count="0" />
-      <LineId Id="878" Count="1" />
-      <LineId Id="881" Count="0" />
-      <LineId Id="880" Count="0" />
-      <LineId Id="882" Count="0" />
-      <LineId Id="1326" Count="0" />
+      <LineId Id="1463" Count="10" />
+      <LineId Id="1475" Count="16" />
       <LineId Id="686" Count="0" />
     </LineIds>
   </POU>
