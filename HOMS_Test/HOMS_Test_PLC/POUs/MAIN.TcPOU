@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.14">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.12">
   <POU Name="MAIN" Id="{d73f6033-1c1a-47a8-be0f-3a700ab10cd1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Main
 VAR
@@ -54,7 +54,7 @@ M3.nEnableMode; // Xup
 M4.nEnableMode; // Xdwn
 M5.nEnableMode; // PitchCoarse
 
-// Encoder Reference Values: Starting motor positions prior to checkout
+// Encoder Reference Values: Taken from HOMS_FEE project
 y_up_enc.Ref := 14897597;
 y_dwn_enc.Ref := 14551600;
 x_up_enc.Ref := 23972500;
@@ -90,9 +90,5 @@ fbMotionStage_x_dwn (stMotionStage:=M4);
 fbMotionStage_pitch (stMotionStage:=M5);
 fbMotionStage_bender (stMotionStage:=M6);]]></ST>
     </Implementation>
-    <LineIds Name="MAIN">
-      <LineId Id="3" Count="41" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>
