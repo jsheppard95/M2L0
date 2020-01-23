@@ -1398,39 +1398,59 @@
                   <Records />
                 </MqttRecords>
                 <MqttConnectionSettings>
-                  <Broker></Broker>
+                  <Broker>
+                  </Broker>
                   <BrokerPort>1883</BrokerPort>
-                  <UserID></UserID>
+                  <UserID>
+                  </UserID>
                   <PasswordCrypted>jaUMm8a5GGoRWlQ33bKtL/8Tm3WR0dUB</PasswordCrypted>
                   <WithCertificates>false</WithCertificates>
-                  <CA_Certificate></CA_Certificate>
-                  <CA_Pwd></CA_Pwd>
-                  <Pfx_Certificate></Pfx_Certificate>
-                  <Pfx_Pwd></Pfx_Pwd>
-                  <Cert_Certificate></Cert_Certificate>
-                  <Cert_Pwd></Cert_Pwd>
-                  <Key_Certificate></Key_Certificate>
-                  <Key_Pwd></Key_Pwd>
+                  <CA_Certificate>
+                  </CA_Certificate>
+                  <CA_Pwd>
+                  </CA_Pwd>
+                  <Pfx_Certificate>
+                  </Pfx_Certificate>
+                  <Pfx_Pwd>
+                  </Pfx_Pwd>
+                  <Cert_Certificate>
+                  </Cert_Certificate>
+                  <Cert_Pwd>
+                  </Cert_Pwd>
+                  <Key_Certificate>
+                  </Key_Certificate>
+                  <Key_Pwd>
+                  </Key_Pwd>
                 </MqttConnectionSettings>
                 <MqttSymbolName>unknown</MqttSymbolName>
                 <MqttValueByteOffset>4294967295</MqttValueByteOffset>
                 <MqttCmdTopic>unknown</MqttCmdTopic>
                 <IsHistorical>false</IsHistorical>
                 <OpcUaAddress>
-                  <ServerUrl></ServerUrl>
-                  <EndpointName></EndpointName>
-                  <SecurityPolicyUri></SecurityPolicyUri>
+                  <ServerUrl>
+                  </ServerUrl>
+                  <EndpointName>
+                  </EndpointName>
+                  <SecurityPolicyUri>
+                  </SecurityPolicyUri>
                   <IdentityType>Anonymous</IdentityType>
-                  <UserName></UserName>
+                  <UserName>
+                  </UserName>
                 </OpcUaAddress>
                 <OpcUaSymbol>
-                  <Name></Name>
-                  <Path></Path>
+                  <Name>
+                  </Name>
+                  <Path>
+                  </Path>
                   <BitSize>0</BitSize>
-                  <BaseType></BaseType>
-                  <NodeClass></NodeClass>
-                  <NodeId></NodeId>
-                  <NamespaceName></NamespaceName>
+                  <BaseType>
+                  </BaseType>
+                  <NodeClass>
+                  </NodeClass>
+                  <NodeId>
+                  </NodeId>
+                  <NamespaceName>
+                  </NamespaceName>
                   <IsArray>false</IsArray>
                   <IsMatrix>false</IsMatrix>
                   <Dimensions>0</Dimensions>
@@ -1471,7 +1491,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -1494,7 +1515,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -1507,7 +1529,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -1530,7 +1553,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -1599,39 +1623,59 @@
                   <Records />
                 </MqttRecords>
                 <MqttConnectionSettings>
-                  <Broker></Broker>
+                  <Broker>
+                  </Broker>
                   <BrokerPort>1883</BrokerPort>
-                  <UserID></UserID>
+                  <UserID>
+                  </UserID>
                   <PasswordCrypted>0Xz6bqSl6rvkMU2sbC319aynrXmR0dUB</PasswordCrypted>
                   <WithCertificates>false</WithCertificates>
-                  <CA_Certificate></CA_Certificate>
-                  <CA_Pwd></CA_Pwd>
-                  <Pfx_Certificate></Pfx_Certificate>
-                  <Pfx_Pwd></Pfx_Pwd>
-                  <Cert_Certificate></Cert_Certificate>
-                  <Cert_Pwd></Cert_Pwd>
-                  <Key_Certificate></Key_Certificate>
-                  <Key_Pwd></Key_Pwd>
+                  <CA_Certificate>
+                  </CA_Certificate>
+                  <CA_Pwd>
+                  </CA_Pwd>
+                  <Pfx_Certificate>
+                  </Pfx_Certificate>
+                  <Pfx_Pwd>
+                  </Pfx_Pwd>
+                  <Cert_Certificate>
+                  </Cert_Certificate>
+                  <Cert_Pwd>
+                  </Cert_Pwd>
+                  <Key_Certificate>
+                  </Key_Certificate>
+                  <Key_Pwd>
+                  </Key_Pwd>
                 </MqttConnectionSettings>
                 <MqttSymbolName>unknown</MqttSymbolName>
                 <MqttValueByteOffset>4294967295</MqttValueByteOffset>
                 <MqttCmdTopic>unknown</MqttCmdTopic>
                 <IsHistorical>false</IsHistorical>
                 <OpcUaAddress>
-                  <ServerUrl></ServerUrl>
-                  <EndpointName></EndpointName>
-                  <SecurityPolicyUri></SecurityPolicyUri>
+                  <ServerUrl>
+                  </ServerUrl>
+                  <EndpointName>
+                  </EndpointName>
+                  <SecurityPolicyUri>
+                  </SecurityPolicyUri>
                   <IdentityType>Anonymous</IdentityType>
-                  <UserName></UserName>
+                  <UserName>
+                  </UserName>
                 </OpcUaAddress>
                 <OpcUaSymbol>
-                  <Name></Name>
-                  <Path></Path>
+                  <Name>
+                  </Name>
+                  <Path>
+                  </Path>
                   <BitSize>0</BitSize>
-                  <BaseType></BaseType>
-                  <NodeClass></NodeClass>
-                  <NodeId></NodeId>
-                  <NamespaceName></NamespaceName>
+                  <BaseType>
+                  </BaseType>
+                  <NodeClass>
+                  </NodeClass>
+                  <NodeId>
+                  </NodeId>
+                  <NamespaceName>
+                  </NamespaceName>
                   <IsArray>false</IsArray>
                   <IsMatrix>false</IsMatrix>
                   <Dimensions>0</Dimensions>
@@ -1672,7 +1716,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -1695,7 +1740,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -1708,7 +1754,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -1731,7 +1778,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -1747,7 +1795,7 @@
             <WidthValues />
             <CreatedRows />
           </MarkerControl>
-          <SortPriority>-1</SortPriority>
+          <SortPriority>0</SortPriority>
         </ScopeYAxisSerializable>
         <ScopeYAxisSerializable>
           <Caption>Velocity - Slave</Caption>
@@ -1834,39 +1882,59 @@
                   <Records />
                 </MqttRecords>
                 <MqttConnectionSettings>
-                  <Broker></Broker>
+                  <Broker>
+                  </Broker>
                   <BrokerPort>1883</BrokerPort>
-                  <UserID></UserID>
+                  <UserID>
+                  </UserID>
                   <PasswordCrypted>HhA7ECpmmf5BVXl0ReC41ZuswI6R0dUB</PasswordCrypted>
                   <WithCertificates>false</WithCertificates>
-                  <CA_Certificate></CA_Certificate>
-                  <CA_Pwd></CA_Pwd>
-                  <Pfx_Certificate></Pfx_Certificate>
-                  <Pfx_Pwd></Pfx_Pwd>
-                  <Cert_Certificate></Cert_Certificate>
-                  <Cert_Pwd></Cert_Pwd>
-                  <Key_Certificate></Key_Certificate>
-                  <Key_Pwd></Key_Pwd>
+                  <CA_Certificate>
+                  </CA_Certificate>
+                  <CA_Pwd>
+                  </CA_Pwd>
+                  <Pfx_Certificate>
+                  </Pfx_Certificate>
+                  <Pfx_Pwd>
+                  </Pfx_Pwd>
+                  <Cert_Certificate>
+                  </Cert_Certificate>
+                  <Cert_Pwd>
+                  </Cert_Pwd>
+                  <Key_Certificate>
+                  </Key_Certificate>
+                  <Key_Pwd>
+                  </Key_Pwd>
                 </MqttConnectionSettings>
                 <MqttSymbolName>unknown</MqttSymbolName>
                 <MqttValueByteOffset>4294967295</MqttValueByteOffset>
                 <MqttCmdTopic>unknown</MqttCmdTopic>
                 <IsHistorical>false</IsHistorical>
                 <OpcUaAddress>
-                  <ServerUrl></ServerUrl>
-                  <EndpointName></EndpointName>
-                  <SecurityPolicyUri></SecurityPolicyUri>
+                  <ServerUrl>
+                  </ServerUrl>
+                  <EndpointName>
+                  </EndpointName>
+                  <SecurityPolicyUri>
+                  </SecurityPolicyUri>
                   <IdentityType>Anonymous</IdentityType>
-                  <UserName></UserName>
+                  <UserName>
+                  </UserName>
                 </OpcUaAddress>
                 <OpcUaSymbol>
-                  <Name></Name>
-                  <Path></Path>
+                  <Name>
+                  </Name>
+                  <Path>
+                  </Path>
                   <BitSize>0</BitSize>
-                  <BaseType></BaseType>
-                  <NodeClass></NodeClass>
-                  <NodeId></NodeId>
-                  <NamespaceName></NamespaceName>
+                  <BaseType>
+                  </BaseType>
+                  <NodeClass>
+                  </NodeClass>
+                  <NodeId>
+                  </NodeId>
+                  <NamespaceName>
+                  </NamespaceName>
                   <IsArray>false</IsArray>
                   <IsMatrix>false</IsMatrix>
                   <Dimensions>0</Dimensions>
@@ -1907,7 +1975,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -1930,7 +1999,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -1943,7 +2013,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -1966,7 +2037,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -2035,39 +2107,59 @@
                   <Records />
                 </MqttRecords>
                 <MqttConnectionSettings>
-                  <Broker></Broker>
+                  <Broker>
+                  </Broker>
                   <BrokerPort>1883</BrokerPort>
-                  <UserID></UserID>
+                  <UserID>
+                  </UserID>
                   <PasswordCrypted>n0xS6IgP7uXa3Hp88MbZuCMrvZaR0dUB</PasswordCrypted>
                   <WithCertificates>false</WithCertificates>
-                  <CA_Certificate></CA_Certificate>
-                  <CA_Pwd></CA_Pwd>
-                  <Pfx_Certificate></Pfx_Certificate>
-                  <Pfx_Pwd></Pfx_Pwd>
-                  <Cert_Certificate></Cert_Certificate>
-                  <Cert_Pwd></Cert_Pwd>
-                  <Key_Certificate></Key_Certificate>
-                  <Key_Pwd></Key_Pwd>
+                  <CA_Certificate>
+                  </CA_Certificate>
+                  <CA_Pwd>
+                  </CA_Pwd>
+                  <Pfx_Certificate>
+                  </Pfx_Certificate>
+                  <Pfx_Pwd>
+                  </Pfx_Pwd>
+                  <Cert_Certificate>
+                  </Cert_Certificate>
+                  <Cert_Pwd>
+                  </Cert_Pwd>
+                  <Key_Certificate>
+                  </Key_Certificate>
+                  <Key_Pwd>
+                  </Key_Pwd>
                 </MqttConnectionSettings>
                 <MqttSymbolName>unknown</MqttSymbolName>
                 <MqttValueByteOffset>4294967295</MqttValueByteOffset>
                 <MqttCmdTopic>unknown</MqttCmdTopic>
                 <IsHistorical>false</IsHistorical>
                 <OpcUaAddress>
-                  <ServerUrl></ServerUrl>
-                  <EndpointName></EndpointName>
-                  <SecurityPolicyUri></SecurityPolicyUri>
+                  <ServerUrl>
+                  </ServerUrl>
+                  <EndpointName>
+                  </EndpointName>
+                  <SecurityPolicyUri>
+                  </SecurityPolicyUri>
                   <IdentityType>Anonymous</IdentityType>
-                  <UserName></UserName>
+                  <UserName>
+                  </UserName>
                 </OpcUaAddress>
                 <OpcUaSymbol>
-                  <Name></Name>
-                  <Path></Path>
+                  <Name>
+                  </Name>
+                  <Path>
+                  </Path>
                   <BitSize>0</BitSize>
-                  <BaseType></BaseType>
-                  <NodeClass></NodeClass>
-                  <NodeId></NodeId>
-                  <NamespaceName></NamespaceName>
+                  <BaseType>
+                  </BaseType>
+                  <NodeClass>
+                  </NodeClass>
+                  <NodeId>
+                  </NodeId>
+                  <NamespaceName>
+                  </NamespaceName>
                   <IsArray>false</IsArray>
                   <IsMatrix>false</IsMatrix>
                   <Dimensions>0</Dimensions>
@@ -2108,7 +2200,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -2131,7 +2224,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -2144,7 +2238,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -2167,7 +2262,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -2183,7 +2279,7 @@
             <WidthValues />
             <CreatedRows />
           </MarkerControl>
-          <SortPriority>-1</SortPriority>
+          <SortPriority>1</SortPriority>
         </ScopeYAxisSerializable>
         <ScopeYAxisSerializable>
           <Caption>Lag - Slave</Caption>
@@ -2270,39 +2366,59 @@
                   <Records />
                 </MqttRecords>
                 <MqttConnectionSettings>
-                  <Broker></Broker>
+                  <Broker>
+                  </Broker>
                   <BrokerPort>1883</BrokerPort>
-                  <UserID></UserID>
+                  <UserID>
+                  </UserID>
                   <PasswordCrypted>NAXKB49AEab+9Iqfam4oTZFAJ66R0dUB</PasswordCrypted>
                   <WithCertificates>false</WithCertificates>
-                  <CA_Certificate></CA_Certificate>
-                  <CA_Pwd></CA_Pwd>
-                  <Pfx_Certificate></Pfx_Certificate>
-                  <Pfx_Pwd></Pfx_Pwd>
-                  <Cert_Certificate></Cert_Certificate>
-                  <Cert_Pwd></Cert_Pwd>
-                  <Key_Certificate></Key_Certificate>
-                  <Key_Pwd></Key_Pwd>
+                  <CA_Certificate>
+                  </CA_Certificate>
+                  <CA_Pwd>
+                  </CA_Pwd>
+                  <Pfx_Certificate>
+                  </Pfx_Certificate>
+                  <Pfx_Pwd>
+                  </Pfx_Pwd>
+                  <Cert_Certificate>
+                  </Cert_Certificate>
+                  <Cert_Pwd>
+                  </Cert_Pwd>
+                  <Key_Certificate>
+                  </Key_Certificate>
+                  <Key_Pwd>
+                  </Key_Pwd>
                 </MqttConnectionSettings>
                 <MqttSymbolName>unknown</MqttSymbolName>
                 <MqttValueByteOffset>4294967295</MqttValueByteOffset>
                 <MqttCmdTopic>unknown</MqttCmdTopic>
                 <IsHistorical>false</IsHistorical>
                 <OpcUaAddress>
-                  <ServerUrl></ServerUrl>
-                  <EndpointName></EndpointName>
-                  <SecurityPolicyUri></SecurityPolicyUri>
+                  <ServerUrl>
+                  </ServerUrl>
+                  <EndpointName>
+                  </EndpointName>
+                  <SecurityPolicyUri>
+                  </SecurityPolicyUri>
                   <IdentityType>Anonymous</IdentityType>
-                  <UserName></UserName>
+                  <UserName>
+                  </UserName>
                 </OpcUaAddress>
                 <OpcUaSymbol>
-                  <Name></Name>
-                  <Path></Path>
+                  <Name>
+                  </Name>
+                  <Path>
+                  </Path>
                   <BitSize>0</BitSize>
-                  <BaseType></BaseType>
-                  <NodeClass></NodeClass>
-                  <NodeId></NodeId>
-                  <NamespaceName></NamespaceName>
+                  <BaseType>
+                  </BaseType>
+                  <NodeClass>
+                  </NodeClass>
+                  <NodeId>
+                  </NodeId>
+                  <NamespaceName>
+                  </NamespaceName>
                   <IsArray>false</IsArray>
                   <IsMatrix>false</IsMatrix>
                   <Dimensions>0</Dimensions>
@@ -2343,7 +2459,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -2366,7 +2483,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -2379,7 +2497,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -2402,7 +2521,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -2418,7 +2538,7 @@
             <WidthValues />
             <CreatedRows />
           </MarkerControl>
-          <SortPriority>-1</SortPriority>
+          <SortPriority>2</SortPriority>
         </ScopeYAxisSerializable>
         <ScopeYAxisSerializable>
           <Caption>X Gantry</Caption>
@@ -2505,39 +2625,59 @@
                   <Records />
                 </MqttRecords>
                 <MqttConnectionSettings>
-                  <Broker></Broker>
+                  <Broker>
+                  </Broker>
                   <BrokerPort>1883</BrokerPort>
-                  <UserID></UserID>
+                  <UserID>
+                  </UserID>
                   <PasswordCrypted>T7+sewYzi+5UyIBWx6ZF7PedyNGR0dUB</PasswordCrypted>
                   <WithCertificates>false</WithCertificates>
-                  <CA_Certificate></CA_Certificate>
-                  <CA_Pwd></CA_Pwd>
-                  <Pfx_Certificate></Pfx_Certificate>
-                  <Pfx_Pwd></Pfx_Pwd>
-                  <Cert_Certificate></Cert_Certificate>
-                  <Cert_Pwd></Cert_Pwd>
-                  <Key_Certificate></Key_Certificate>
-                  <Key_Pwd></Key_Pwd>
+                  <CA_Certificate>
+                  </CA_Certificate>
+                  <CA_Pwd>
+                  </CA_Pwd>
+                  <Pfx_Certificate>
+                  </Pfx_Certificate>
+                  <Pfx_Pwd>
+                  </Pfx_Pwd>
+                  <Cert_Certificate>
+                  </Cert_Certificate>
+                  <Cert_Pwd>
+                  </Cert_Pwd>
+                  <Key_Certificate>
+                  </Key_Certificate>
+                  <Key_Pwd>
+                  </Key_Pwd>
                 </MqttConnectionSettings>
                 <MqttSymbolName>unknown</MqttSymbolName>
                 <MqttValueByteOffset>4294967295</MqttValueByteOffset>
                 <MqttCmdTopic>unknown</MqttCmdTopic>
                 <IsHistorical>false</IsHistorical>
                 <OpcUaAddress>
-                  <ServerUrl></ServerUrl>
-                  <EndpointName></EndpointName>
-                  <SecurityPolicyUri></SecurityPolicyUri>
+                  <ServerUrl>
+                  </ServerUrl>
+                  <EndpointName>
+                  </EndpointName>
+                  <SecurityPolicyUri>
+                  </SecurityPolicyUri>
                   <IdentityType>Anonymous</IdentityType>
-                  <UserName></UserName>
+                  <UserName>
+                  </UserName>
                 </OpcUaAddress>
                 <OpcUaSymbol>
-                  <Name></Name>
-                  <Path></Path>
+                  <Name>
+                  </Name>
+                  <Path>
+                  </Path>
                   <BitSize>0</BitSize>
-                  <BaseType></BaseType>
-                  <NodeClass></NodeClass>
-                  <NodeId></NodeId>
-                  <NamespaceName></NamespaceName>
+                  <BaseType>
+                  </BaseType>
+                  <NodeClass>
+                  </NodeClass>
+                  <NodeId>
+                  </NodeId>
+                  <NamespaceName>
+                  </NamespaceName>
                   <IsArray>false</IsArray>
                   <IsMatrix>false</IsMatrix>
                   <Dimensions>0</Dimensions>
@@ -2578,7 +2718,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -2601,7 +2742,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -2614,7 +2756,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -2637,7 +2780,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -2653,7 +2797,7 @@
             <WidthValues />
             <CreatedRows />
           </MarkerControl>
-          <SortPriority>-1</SortPriority>
+          <SortPriority>3</SortPriority>
         </ScopeYAxisSerializable>
         <ScopeYAxisSerializable>
           <Caption>Y Gantry</Caption>
@@ -2740,39 +2884,59 @@
                   <Records />
                 </MqttRecords>
                 <MqttConnectionSettings>
-                  <Broker></Broker>
+                  <Broker>
+                  </Broker>
                   <BrokerPort>1883</BrokerPort>
-                  <UserID></UserID>
+                  <UserID>
+                  </UserID>
                   <PasswordCrypted>zi+JOxHg1ClvI8jYkZHyFVRLb+eR0dUB</PasswordCrypted>
                   <WithCertificates>false</WithCertificates>
-                  <CA_Certificate></CA_Certificate>
-                  <CA_Pwd></CA_Pwd>
-                  <Pfx_Certificate></Pfx_Certificate>
-                  <Pfx_Pwd></Pfx_Pwd>
-                  <Cert_Certificate></Cert_Certificate>
-                  <Cert_Pwd></Cert_Pwd>
-                  <Key_Certificate></Key_Certificate>
-                  <Key_Pwd></Key_Pwd>
+                  <CA_Certificate>
+                  </CA_Certificate>
+                  <CA_Pwd>
+                  </CA_Pwd>
+                  <Pfx_Certificate>
+                  </Pfx_Certificate>
+                  <Pfx_Pwd>
+                  </Pfx_Pwd>
+                  <Cert_Certificate>
+                  </Cert_Certificate>
+                  <Cert_Pwd>
+                  </Cert_Pwd>
+                  <Key_Certificate>
+                  </Key_Certificate>
+                  <Key_Pwd>
+                  </Key_Pwd>
                 </MqttConnectionSettings>
                 <MqttSymbolName>unknown</MqttSymbolName>
                 <MqttValueByteOffset>4294967295</MqttValueByteOffset>
                 <MqttCmdTopic>unknown</MqttCmdTopic>
                 <IsHistorical>false</IsHistorical>
                 <OpcUaAddress>
-                  <ServerUrl></ServerUrl>
-                  <EndpointName></EndpointName>
-                  <SecurityPolicyUri></SecurityPolicyUri>
+                  <ServerUrl>
+                  </ServerUrl>
+                  <EndpointName>
+                  </EndpointName>
+                  <SecurityPolicyUri>
+                  </SecurityPolicyUri>
                   <IdentityType>Anonymous</IdentityType>
-                  <UserName></UserName>
+                  <UserName>
+                  </UserName>
                 </OpcUaAddress>
                 <OpcUaSymbol>
-                  <Name></Name>
-                  <Path></Path>
+                  <Name>
+                  </Name>
+                  <Path>
+                  </Path>
                   <BitSize>0</BitSize>
-                  <BaseType></BaseType>
-                  <NodeClass></NodeClass>
-                  <NodeId></NodeId>
-                  <NamespaceName></NamespaceName>
+                  <BaseType>
+                  </BaseType>
+                  <NodeClass>
+                  </NodeClass>
+                  <NodeId>
+                  </NodeId>
+                  <NamespaceName>
+                  </NamespaceName>
                   <IsArray>false</IsArray>
                   <IsMatrix>false</IsMatrix>
                   <Dimensions>0</Dimensions>
@@ -2813,7 +2977,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -2836,7 +3001,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -2849,7 +3015,8 @@
                     <Prefix>none</Prefix>
                     <ScaleFactor>1</ScaleFactor>
                     <Offset>0</Offset>
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <ReturnText> (None) </ReturnText>
                     <BaseUnitString />
                     <NameExtension />
@@ -2872,7 +3039,8 @@
                     <Name>None</Name>
                     <BaseName>UnitOfOne</BaseName>
                     <NameExtension />
-                    <Symbol></Symbol>
+                    <Symbol>
+                    </Symbol>
                     <BaseUnitString />
                     <UserPrefix>none</UserPrefix>
                   </UserUnit>
@@ -2888,7 +3056,7 @@
             <WidthValues />
             <CreatedRows />
           </MarkerControl>
-          <SortPriority>-1</SortPriority>
+          <SortPriority>4</SortPriority>
         </ScopeYAxisSerializable>
       </YAxes>
       <XYAxes />
@@ -2903,7 +3071,7 @@
         <Precision>6</Precision>
       </CursorModule>
       <Operating>
-        <DisplayWidth>4000000000</DisplayWidth>
+        <DisplayWidth>100000000</DisplayWidth>
       </Operating>
       <ChartType>XT</ChartType>
       <SortPriority>-1</SortPriority>
