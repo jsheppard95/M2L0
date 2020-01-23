@@ -10,9 +10,17 @@ VAR
 	M5: DUT_MotionStage:=(nCommand:=3); // PitchCoarse
 	M6: DUT_MotionStage:=(nCommand:=3); // Bender
 
+	M1_Extras : DUT_MotionStage_Extras;
+	M2_Extras : DUT_MotionStage_Extras;
+	M3_Extras : DUT_MotionStage_Extras;
+	M4_Extras : DUT_MotionStage_Extras;
+	M5_Extras : DUT_MotionStage_Extras;
+	M6_Extras : DUT_MotionStage_Extras;
+
 	fbMotionStage_x_up, fbMotionStage_x_dwn, fbMotionStage_y_up, fbMotionStage_y_dwn, fbMotionStage_pitch, fbMotionStage_bender : FB_MotionStage;
 
-	stoEnable AT %I* : BOOL;
+	bSTOEnable1 AT %I* : BOOL;
+	bSTOEnable2 AT %I* : BOOL;
 	x_up_enc  AT %I*: ST_RenishawAbsEnc;
 	x_dwn_enc  AT %I*: ST_RenishawAbsEnc;
 	y_up_enc  AT %I*: ST_RenishawAbsEnc;
@@ -31,8 +39,8 @@ VAR
 	// Gantry variables
 	nCurrGantryX : LINT;
 	nCurrGantryY : LINT;
-	nGantryTolX : LINT := 25000;
-	nGantryTolY : LINT := 25000;
+	nGantryTolX : LINT := 50000;
+	nGantryTolY : LINT := 50000;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[// M2L0
@@ -44,8 +52,13 @@ M4.nEnableMode; // Xdwn
 M5.nEnableMode; // PitchCoarse
 
 // Encoder Reference Values: Taken from HOMS_FEE project
+// Y Gantry really large, not sure if correct. Using initial motor positions for now:
+(*
 y_up_enc.Ref := 14897597;
 y_dwn_enc.Ref := 14551600;
+*)
+y_up_enc.Ref := 12959000;
+y_dwn_enc.Ref := 15964000;
 x_up_enc.Ref := 23972500;
 x_dwn_enc.Ref := 24766500;
 
@@ -54,12 +67,12 @@ nCurrGantryY := ((ULINT_TO_LINT(y_up_enc.Count) - ULINT_TO_LINT(y_up_enc.Ref)) -
 nCurrGantryX := ((ULINT_TO_LINT(x_up_enc.Count) - ULINT_TO_LINT(x_up_enc.Ref)) - (ULINT_TO_LINT(x_dwn_enc.Count) - ULINT_TO_LINT(x_dwn_enc.Ref)));
 
 // E-stop
-M1.bHardwareEnable := stoEnable;
-M2.bHardwareEnable := stoEnable;
-M3.bHardwareEnable := stoEnable;
-M4.bHardwareEnable := stoEnable;
-M5.bHardwareEnable := stoEnable;
-M6.bHardwareEnable := stoEnable;
+M1.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+M2.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+M3.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+M4.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+M5.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
+M6.bHardwareEnable := bSTOEnable1 AND bSTOEnable2;
 
 // Start Autocoupling
 fbAutoCoupleX(nGantryTol:=nGantryTolX, Master:=M3, MasterEnc:=x_up_enc, Slave:=M4,
