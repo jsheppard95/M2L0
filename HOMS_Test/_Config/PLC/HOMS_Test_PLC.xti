@@ -701,15 +701,15 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{F805A1E1-0557-4D9A-B054-36C8BE115B88}" Namespace="lcls_twincat_motion" AutoDeleteType="true">EL5042_Status</Name>
+			<Name GUID="{C1515683-0811-44E9-9484-D8B6424B85A9}" Namespace="lcls_twincat_motion" AutoDeleteType="true">EL5042_Status</Name>
 			<BitSize>0</BitSize>
 			<BaseType GUID="{FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF}"/>
 			<Hides>
-				<Hide GUID="{A5BEE372-340F-4E0A-8F05-74BDF03C118D}"/>
+				<Hide GUID="{F805A1E1-0557-4D9A-B054-36C8BE115B88}"/>
 			</Hides>
 		</DataType>
 		<DataType>
-			<Name GUID="{6AA1033A-DCC1-4A25-8AD8-21DBFFEDB9B6}" Namespace="lcls_twincat_motion" AutoDeleteType="true">ST_RenishawAbsEnc</Name>
+			<Name GUID="{8A34809F-78E3-41F5-9B0E-CCF359E0B8C5}" Namespace="lcls_twincat_motion" AutoDeleteType="true">ST_RenishawAbsEnc</Name>
 			<Comment>
 				<![CDATA[ Renishaw BiSS-C absolute encoder used with an EL5042 ]]>
 			</Comment>
@@ -731,7 +731,7 @@ External Setpoint Generation:
 			</SubItem>
 			<SubItem>
 				<Name>Status</Name>
-				<Type GUID="{F805A1E1-0557-4D9A-B054-36C8BE115B88}" Namespace="lcls_twincat_motion">EL5042_Status</Type>
+				<Type GUID="{C1515683-0811-44E9-9484-D8B6424B85A9}" Namespace="lcls_twincat_motion">EL5042_Status</Type>
 				<Comment>
 					<![CDATA[ Status struct placeholder]]>
 				</Comment>
@@ -748,7 +748,7 @@ External Setpoint Generation:
 				<BitOffs>64</BitOffs>
 			</SubItem>
 			<Hides>
-				<Hide GUID="{0481EF2E-DC41-41AD-8995-1AA69723FB44}"/>
+				<Hide GUID="{6AA1033A-DCC1-4A25-8AD8-21DBFFEDB9B6}"/>
 			</Hides>
 		</DataType>
 		<DataType>
@@ -992,6 +992,14 @@ External Setpoint Generation:
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
 				<Name>PlcTask Inputs</Name>
+				<Var>
+					<Name>Main.bSTOEnable1</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Main.bSTOEnable2</Name>
+					<Type>BOOL</Type>
+				</Var>
 				<Var>
 					<Name>Main.M1.Axis.NcToPlc</Name>
 					<Type GUID="{6A65C767-34E5-42BF-AD87-E1A503EAC7BE}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
@@ -1696,7 +1704,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.x_up_enc</Name>
-					<Type GUID="{6AA1033A-DCC1-4A25-8AD8-21DBFFEDB9B6}" Namespace="lcls_twincat_motion">ST_RenishawAbsEnc</Type>
+					<Type GUID="{8A34809F-78E3-41F5-9B0E-CCF359E0B8C5}" Namespace="lcls_twincat_motion">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1718,7 +1726,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.x_dwn_enc</Name>
-					<Type GUID="{6AA1033A-DCC1-4A25-8AD8-21DBFFEDB9B6}" Namespace="lcls_twincat_motion">ST_RenishawAbsEnc</Type>
+					<Type GUID="{8A34809F-78E3-41F5-9B0E-CCF359E0B8C5}" Namespace="lcls_twincat_motion">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1740,7 +1748,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.y_up_enc</Name>
-					<Type GUID="{6AA1033A-DCC1-4A25-8AD8-21DBFFEDB9B6}" Namespace="lcls_twincat_motion">ST_RenishawAbsEnc</Type>
+					<Type GUID="{8A34809F-78E3-41F5-9B0E-CCF359E0B8C5}" Namespace="lcls_twincat_motion">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1762,7 +1770,7 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>Main.y_dwn_enc</Name>
-					<Type GUID="{6AA1033A-DCC1-4A25-8AD8-21DBFFEDB9B6}" Namespace="lcls_twincat_motion">ST_RenishawAbsEnc</Type>
+					<Type GUID="{8A34809F-78E3-41F5-9B0E-CCF359E0B8C5}" Namespace="lcls_twincat_motion">ST_RenishawAbsEnc</Type>
 					<SubVar>
 						<Name>Count</Name>
 						<Comment>
@@ -1816,14 +1824,6 @@ External Setpoint Generation:
 						<![CDATA[Better have your inputs and outputs!]]>
 					</Comment>
 					<Type GUID="{8A3E4B9C-FB8B-4C56-8BC6-AA7482EA3999}" Namespace="Tc2_SerialCom">EL6inData22B</Type>
-				</Var>
-				<Var>
-					<Name>Main.bSTOEnable1</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>Main.bSTOEnable2</Name>
-					<Type>BOOL</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="2">

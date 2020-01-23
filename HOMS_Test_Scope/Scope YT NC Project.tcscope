@@ -126,7 +126,7 @@
                 <SymbolName>AXES.Axis_PitchCoarse.ACTPOS</SymbolName>
                 <SymbolComment></SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>157</FileHandle>
+                <FileHandle>25</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>20000</SampleTime>
@@ -351,7 +351,7 @@
                 <SymbolName>AXES.Axis_PitchCoarse.SETPOS</SymbolName>
                 <SymbolComment></SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>158</FileHandle>
+                <FileHandle>26</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>20000</SampleTime>
@@ -575,7 +575,7 @@
           <Name>Velocity</Name>
           <Style>
             <Visible>true</Visible>
-            <Enabled>false</Enabled>
+            <Enabled>true</Enabled>
             <ColorValue>-16744384</ColorValue>
             <UseGrid>true</UseGrid>
             <Ticks>10</Ticks>
@@ -610,7 +610,7 @@
                 <SymbolName>AXES.Axis_PitchCoarse.ACTVELO</SymbolName>
                 <SymbolComment></SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>159</FileHandle>
+                <FileHandle>27</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>20000</SampleTime>
@@ -835,7 +835,7 @@
                 <SymbolName>AXES.Axis_PitchCoarse.SETVELO</SymbolName>
                 <SymbolComment></SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>160</FileHandle>
+                <FileHandle>28</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>20000</SampleTime>
@@ -1094,7 +1094,7 @@
                 <SymbolName>AXES.Axis_PitchCoarse.POSDIFF</SymbolName>
                 <SymbolComment></SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>161</FileHandle>
+                <FileHandle>29</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>20000</SampleTime>
@@ -1318,7 +1318,7 @@
           <Name>Position - Slave</Name>
           <Style>
             <Visible>true</Visible>
-            <Enabled>true</Enabled>
+            <Enabled>false</Enabled>
             <ColorValue>-13676721</ColorValue>
             <UseGrid>true</UseGrid>
             <Ticks>10</Ticks>
@@ -1353,7 +1353,7 @@
                 <SymbolName>Axes.Axis_Ydwn.ActPos</SymbolName>
                 <SymbolComment></SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>162</FileHandle>
+                <FileHandle>30</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>20000</SampleTime>
@@ -1578,7 +1578,7 @@
                 <SymbolName>Axes.Axis_Ydwn.SetPos</SymbolName>
                 <SymbolComment></SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>163</FileHandle>
+                <FileHandle>31</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>20000</SampleTime>
@@ -1837,7 +1837,7 @@
                 <SymbolName>Axes.Axis_Ydwn.ActVelo</SymbolName>
                 <SymbolComment></SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>164</FileHandle>
+                <FileHandle>32</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>20000</SampleTime>
@@ -2062,7 +2062,7 @@
                 <SymbolName>Axes.Axis_Ydwn.SetVelo</SymbolName>
                 <SymbolComment></SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>165</FileHandle>
+                <FileHandle>33</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>20000</SampleTime>
@@ -2321,7 +2321,7 @@
                 <SymbolName>Axes.Axis_Ydwn.PosDiff</SymbolName>
                 <SymbolComment></SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>166</FileHandle>
+                <FileHandle>34</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>20000</SampleTime>
@@ -2573,14 +2573,14 @@
               <Acquisition>
                 <DataType>INT64</DataType>
                 <IndexGroup>16448</IndexGroup>
-                <IndexOffset>664496</IndexOffset>
+                <IndexOffset>664592</IndexOffset>
                 <Unit />
                 <TargetPort>851</TargetPort>
                 <VariableSize>8</VariableSize>
                 <SymbolName>Main.nCurrGantryX</SymbolName>
                 <SymbolComment> Gantry variables</SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>167</FileHandle>
+                <FileHandle>35</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>100000</SampleTime>
@@ -2832,14 +2832,14 @@
               <Acquisition>
                 <DataType>INT64</DataType>
                 <IndexGroup>16448</IndexGroup>
-                <IndexOffset>664504</IndexOffset>
+                <IndexOffset>664600</IndexOffset>
                 <Unit />
                 <TargetPort>851</TargetPort>
                 <VariableSize>8</VariableSize>
                 <SymbolName>Main.nCurrGantryY</SymbolName>
                 <SymbolComment></SymbolComment>
                 <IsSymbolBased>true</IsSymbolBased>
-                <FileHandle>168</FileHandle>
+                <FileHandle>36</FileHandle>
                 <UseLocalServer>true</UseLocalServer>
                 <AmsNetIdString>172.21.148.46.1.1</AmsNetIdString>
                 <SampleTime>100000</SampleTime>
@@ -3071,7 +3071,7 @@
         <Precision>6</Precision>
       </CursorModule>
       <Operating>
-        <DisplayWidth>100000000</DisplayWidth>
+        <DisplayWidth>3200000000</DisplayWidth>
       </Operating>
       <ChartType>XT</ChartType>
       <SortPriority>-1</SortPriority>
